@@ -1,0 +1,38 @@
+<!-- Block UI when loading -->
+<p-blockUI [blocked]="loadingAll" >
+    <div><i class="fa fa-cog fa-spin fa-5x"></i></div>
+</p-blockUI>
+<!-- Block chart UI when loading -->
+<p-blockUI [blocked]="loadingChart" [target]="chartpanel">
+    <div><i class="fa fa-cog fa-spin fa-5x"></i></div>
+</p-blockUI>
+
+<!--General stats-->
+<p-panel header="General" [toggleable]="true">
+	<div class="ui-g">
+	    <div class="ui-g-12 ui-md-12 ui-lg-6">
+	    	<p-chart type="doughnut" [data]="countDataIntentChart" [options]="intentOptions" ></p-chart>
+	    </div>
+	    <div class="ui-g-12 ui-md-12 ui-lg-6">
+	    	<p-chart type="doughnut" [data]="countDataCategoryChart" [options]="categoryOptions"></p-chart>
+	    </div>
+	</div>
+</p-panel>
+
+<!--Time series-->
+<p-panel #chartpanel header="Time Series" [toggleable]="true">
+	<div class="ui-g">
+		<div class="ui-g-12" style="text-align: center;">
+		    <p-dropdown id=time-series-drop [options]="timeSeriesDropdown" placeholder="Select a tag" [filter]="true" (onChange)=tagChange($event.value)></p-dropdown>
+		</div>
+	    <div class="ui-g-12 ui-md-12 ui-lg-12" *ngIf="timeSeriesChosen!==undefined">
+	    	<p-chart type="line" [data]="timeSeriesChart" [options]="timeSeriesOptions"></p-chart>
+	    </div>
+	</div>
+</p-panel>
+
+
+
+
+
+

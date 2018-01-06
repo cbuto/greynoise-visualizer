@@ -1,0 +1,12 @@
+Flask
+Flask-RESTful
+requests
+Flask-Caching
+Flask-Cors
+pandas
+gunicorn
+greenlet
+gevent
+redis
+coverage
+nose2

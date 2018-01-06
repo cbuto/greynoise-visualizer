@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+.ui-blockui div{
+	position: relative;
+	top: 50%;
+}	
+.ui-blockui i{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+body{
+	background-color: #eef1f4;
+}
+.menu-header{
+	border: none;
+	margin: none;
+}
+

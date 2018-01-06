@@ -1,0 +1,31 @@
+sudo: required
+
+dist: trusty
+
+language: node_js
+
+notifications:
+  email: false
+
+node_js:
+  - "9.3.0"
+
+python:
+  - "3.6"
+
+services:
+  - docker
+
+addons:
+  chrome: stable
+
+before_script:
+- npm install -g @angular/cli
+- cd frontend && npm install
+- cd .. && docker-compose build
+
+script:
+- docker-compose up -d
+- docker-compose ps
+- docker-compose exec flask_api nose2 -v
+- cd frontend && ng test --watch false --browsers ChromeHeadless

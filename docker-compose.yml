@@ -1,0 +1,38 @@
+
+version: '3'
+
+services:
+
+  # ============================================================================
+  # FLASK API CONTAINER
+  # ============================================================================
+  flask_api:
+    container_name: greynoise-backend
+    restart: always
+    expose:
+      - "8080"
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/app
+
+ # ============================================================================
+  # NGINX SERVER CONTAINER
+  # ============================================================================
+  nginx_angular:
+    container_name: greynoise-angular
+    restart: always
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - flask_api
+    links:
+      - flask_api
+  redis:
+    image: redis:alpine

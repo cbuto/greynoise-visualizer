@@ -1,0 +1,20 @@
+.search-wrapper{
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+}
+.search-input{
+	padding: 6px 15px 6px 1px;
+	margin: 3px; 
+	border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border: .1px solid lightgrey;
+	width: 60%;
+}
+.search-input:hover{
+	border-color: grey;
+}
+.search-input:focus{
+	border-color: grey;
+}

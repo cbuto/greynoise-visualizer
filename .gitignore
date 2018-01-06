@@ -1,0 +1,15 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+frontend/dist
+
+# dependencies
+frontend/node_modules
+
+#python cache
+backend/__pycache__
+
+# System Files
+.DS_Store
+Thumbs.db
+*.sublime-workspace
