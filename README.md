@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cbuto/greynoise-visualizer.svg?branch=master)](https://travis-ci.org/cbuto/greynoise-visualizer)
+
 # Greynoise Visualizer Application
 
 A simple web application built with Angular and Flask to visualize [GreyNoise](https://github.com/Grey-Noise-Intelligence/api.greynoise.io) data. Includes some simple statistics (general stats and time series charts) and a table view of the data. 
