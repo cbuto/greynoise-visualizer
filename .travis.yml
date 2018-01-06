@@ -23,9 +23,10 @@ before_script:
 - npm install -g @angular/cli
 - cd frontend && npm install
 - cd .. && docker-compose build
+- docker pull owasp/zap2docker-stable
 
 script:
 - docker-compose up -d
-- docker-compose ps
+- docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://localhost
 - docker-compose exec flask_api nose2 -v
 - cd frontend && ng test --watch false --browsers ChromeHeadless
