@@ -12,7 +12,7 @@ export class AppComponent {
     ngOnInit() {
       //tab menu items
         this.items = [
-        	{label: 'Table', icon: 'fa-database', routerLink: ['']},
+        	{label: 'Table', icon: 'fa-database', routerLink: ['table']},
           {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
         ];
     }

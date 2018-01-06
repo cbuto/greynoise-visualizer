@@ -47,7 +47,6 @@ export class StatsComponent implements OnInit {
 	constructor(private _apiService: ApiService) {}
 
 	ngOnInit() {
-	
 		//subcribe to getOnlyNames to create dropdown for time series
 		this.getOnlyNames().subscribe(_ => {;
 			this.timeSeriesDropdownTemp = this.tagNames.tags.map(data => data.name);
@@ -67,9 +66,9 @@ export class StatsComponent implements OnInit {
 			this.categoryNames = this.countData.counts.category.map(data => data.name);
 			this.categoryCounts = this.countData.counts.category.map(data => data.count);
 
+
 			//intention chart setup
 			this.countDataIntentChart = {
-
 	            labels: this.intentNames,
 	            datasets: [
 	                {
@@ -96,9 +95,11 @@ export class StatsComponent implements OnInit {
 				title: {
 				    display: true,
 				    text: 'Intentions',
-				    fontSize: 16
+				    fontSize: 16,
+				    fontColor: 'white'
 				},
 				legend: {
+					labels: {fontColor: 'white'},
 				    position: 'right'
 				}
 			};
@@ -143,9 +144,11 @@ export class StatsComponent implements OnInit {
 				title: {
 				    display: true,
 				    text: 'Categories',
-				    fontSize: 16
+				    fontSize: 16,
+				    fontColor: 'white'
 				},
 				legend: {
+					labels: {fontColor: 'white'},
 				    position: 'right'
 				}
 			};
@@ -212,8 +215,8 @@ export class StatsComponent implements OnInit {
 	                {
 	                	label: this.timeSeriesChosen + ' count',
 	                    data: this.timeSeriesHits,
-	                   	fill: true,
-                    	borderColor: '#565656'
+	                   	fill: false,
+                    	borderColor: 'white'
 	                }]    
 	            };
 	       
@@ -222,11 +225,31 @@ export class StatsComponent implements OnInit {
 				title: {
 				    display: true,
 				    text: 'Time Series',
-				    fontSize: 16
+				    fontSize: 16,
+				    fontColor: 'white'
 				},
 				legend: {
+					labels: {fontColor: 'white'},
 				    position: 'bottom'
-				}
+				},
+				scales: {
+		            xAxes: [{ 
+		                ticks: {
+		                  fontColor: "white",
+		                },
+		                gridLines: {
+						  color: "#8b8b8b"
+						}
+		            }],
+		            yAxes: [{
+		                ticks: {
+		                  fontColor: "white",
+		                },
+		                gridLines: {
+						  color: "#8b8b8b"
+						}
+		            }],
+		        }
 			};
     	});	
 	}

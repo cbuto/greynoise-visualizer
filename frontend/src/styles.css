@@ -16,4 +16,7 @@ body{
 	border: none;
 	margin: none;
 }
-
+.menu-header li{
+	margin: 0 .2em 0px 0 !important;
+	top: 2px !important;
+}
