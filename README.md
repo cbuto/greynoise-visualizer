@@ -10,6 +10,15 @@ The easiest way to get started with this project is to use docker-compose.
 
 ### Prerequisites
 
+For development:
+
+* python 3.6 
+* [Node.js](https://nodejs.org/en/download/package-manager/)
+* Angular CLI 
+** ```npm install -g @angular/cli```
+
+For deployment:
+
 Install Docker and Docker Compose:
 
 * Docker installation instructions: https://docs.docker.com/engine/installation/ 
@@ -30,13 +39,25 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
+## Development
+
+Flask backend:
+	* ```cd backend```
+	* ```pip3.6 install -r requirements.txt```
+	* ```python3.6 app.py```
+
+Angular development server:
+	* ```cd frontend```
+	* ```npm install```
+	* ```ng serve```
+
 ## Deployment
 
 A simple deployment using docker-compose:
 
 ```bash
 docker-compose build
-docker-compose up 
+docker-compose up -d
 ```
 
 ## License

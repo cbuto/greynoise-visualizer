@@ -11,6 +11,8 @@ services:
     restart: always
     expose:
       - "8080"
+    environment:
+      - FLASK_ENV_CONFIG="prod"
     build:
       context: .
       dockerfile: ./backend/Dockerfile

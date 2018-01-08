@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from '../environments/environment';
 
 import { ApiService } from './api.service';
 
@@ -39,7 +40,7 @@ describe('ApiService', () => {
                  .subscribe(data => {
                    expect(data).toEqual(response);
                  });
-    const tagNameRequest = httpMock.expectOne('/api/tags'); 
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/tags'); 
     tagNameRequest.flush(response);
     httpMock.verify();
   }));
@@ -59,7 +60,7 @@ describe('ApiService', () => {
                  .subscribe(data => {
                    expect(data).toEqual(response);
                  });
-    const tagNameRequest = httpMock.expectOne('/api/tagnames'); 
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/tagnames'); 
     tagNameRequest.flush(response);
     httpMock.verify();
   }));
@@ -83,7 +84,7 @@ describe('ApiService', () => {
                  .subscribe(data => {
                    expect(data).toEqual(response);
                  });
-    const tagNameRequest = httpMock.expectOne('/api/tags/GOOGLEBOT'); 
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/tags/GOOGLEBOT'); 
     tagNameRequest.flush(response);
     httpMock.verify();
   }));
@@ -104,7 +105,7 @@ describe('ApiService', () => {
                  .subscribe(data => {
                    expect(data).toEqual(response);
                  });
-    const tagNameRequest = httpMock.expectOne('/api/stats/GOOGLEBOT'); 
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/stats/GOOGLEBOT'); 
     tagNameRequest.flush(response);
     httpMock.verify();
   }));
@@ -125,7 +126,7 @@ describe('ApiService', () => {
                  .subscribe(data => {
                    expect(data).toEqual(response);
                  });
-    const tagNameRequest = httpMock.expectOne('/api/stats/counts'); 
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/stats/counts'); 
     tagNameRequest.flush(response);
     httpMock.verify();
   }));

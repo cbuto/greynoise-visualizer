@@ -11,14 +11,18 @@ app = Flask(__name__)
 CORS(app)
 
 #cache setup
-#cache = Cache(app,config={'CACHE_TYPE': 'simple'})
-cache = Cache(app, config={
-    'CACHE_TYPE': 'redis',
-    'CACHE_KEY_PREFIX': 'pcache',
-    'CACHE_REDIS_HOST': 'redis',
-    'CACHE_REDIS_PORT': '6379',
-    'CACHE_REDIS_URL': 'redis://redis:6379'
+#set FLASK_ENV_CONFIG before starting the app
+#dev uses simple cache and prod uses redis (docker container)
+if("FLASK_ENV_CONFIG" in os.environ and os.environ['FLASK_ENV_CONFIG'] == "prod"):
+    cache = Cache(app, config={
+        'CACHE_TYPE': 'redis',
+        'CACHE_KEY_PREFIX': 'pcache',
+        'CACHE_REDIS_HOST': 'redis',
+        'CACHE_REDIS_PORT': '6379',
+        'CACHE_REDIS_URL': 'redis://redis:6379'
     })
+else:
+    cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 #make cache key (path and arguments)
 def make_cache_key(*args, **kwargs):
