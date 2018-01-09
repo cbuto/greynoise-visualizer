@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, url_for, request
-import os, requests, ipaddress
+import os, requests, ipaddress, geoip2.database
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
 from collections import Counter
@@ -9,6 +9,8 @@ from pandas.io.json import json_normalize
 
 app = Flask(__name__)
 CORS(app)
+#geoip database reader
+reader = geoip2.database.Reader('GeoLite2-City.mmdb')
 
 #cache setup
 #set FLASK_ENV_CONFIG before starting the app
@@ -84,6 +86,20 @@ def api_get_tagData(tag):
     return jsonify({
               'records' :  tagData
             }) 
+
+#returns IP and location for each instances of a specified tag
+#calls getTagIpGeo to get data
+@app.route('/api/geo/<tag>', methods = ['POST'])
+@cache.cached(timeout=86400, key_prefix=make_cache_key)
+def api_get_tag_geo(tag):
+    ''' Get tag IPs from greynoise and use geoip2 to get lat/long of IP'''
+
+    tagData = getTagIpGeo(tag)
+
+    return jsonify({
+              'record' :  tagData
+            }) 
+
 
 #returns counts for intentions and categories
 @app.route('/api/stats/counts', methods = ['GET'])
@@ -202,6 +218,25 @@ def getTags():
             
     except Exception as e:
         return e 
+
+#get the long, lat for each IP for a specific tag
+@cache.memoize(timeout=86400)
+def getTagIpGeo(tag):
+
+    tagData = getTagData(tag)
+    finalTagData = []
+
+    #for each tag instances
+    #rearrange data and get long and lat
+    for section in tagData:
+        newTagData = {}
+        newTagData['ip'] = section['ip']
+        response = reader.city(section['ip'])
+        newTagData['long'] = response.location.longitude
+        newTagData['lat'] = response.location.latitude
+        finalTagData.append(newTagData)
+
+    return finalTagData
 
 #source: https://github.com/phyler/greynoise
 #time series calculations

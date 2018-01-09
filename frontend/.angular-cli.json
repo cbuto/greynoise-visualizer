@@ -9,7 +9,12 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        {
+          "glob": "**/*",
+          "input": "../node_modules/leaflet/dist/images",
+          "output": "./assets/"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -22,6 +27,8 @@
 	      "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/primeng/resources/primeng.css",
 	      "../node_modules/primeng/resources/themes/cruze/theme.css",
+        "../node_modules/leaflet/dist/leaflet.css",
+        "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
         "styles.css"
       ],
       "scripts": [

@@ -10,3 +10,4 @@ gevent
 redis
 coverage
 nose2
+geoip2

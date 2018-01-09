@@ -1,21 +1,24 @@
 [![Build Status](https://travis-ci.org/cbuto/greynoise-visualizer.svg?branch=master)](https://travis-ci.org/cbuto/greynoise-visualizer)
-
 # Greynoise Visualizer Application
 
-A simple web application built with Angular and Flask to visualize [GreyNoise](https://github.com/Grey-Noise-Intelligence/api.greynoise.io) data. Includes some simple statistics (general stats and time series charts) and a table view of the data. 
+A simple web application built to visualize [GreyNoise](https://github.com/Grey-Noise-Intelligence/api.greynoise.io) data. Includes some simple statistics (general stats and time series charts), a table view of the data, and a map to view the location of the IP addresses that are associated with a particular tag. Angular serves as the frontend, Flask as the backend (to retrieve data and compute statistics), and Redis for caching.
+
+Excerpt from the [GreyNoise](https://github.com/Grey-Noise-Intelligence/api.greynoise.io) repo:
+> Grey Noise is a system that collects and analyzes data on Internet-wide scanners. Grey Noise collects data on benign scanners such as Shodan.io, as well as malicious actors like SSH and telnet worms.
+
 
 ## Getting Started
 
-The easiest way to get started with this project is to use docker-compose.
+The quickest way deploy this project is to use docker-compose. In order to set up a development environment, follow the steps in the development section. 
 
 ### Prerequisites
 
 For development:
 
-* python 3.6 
+* Python 3.6 
+* GeoLite2 City database - geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 * [Node.js](https://nodejs.org/en/download/package-manager/)
-* Angular CLI 
-** ```npm install -g @angular/cli```
+* Angular CLI - ```npm install -g @angular/cli```
 
 For deployment:
 
@@ -42,14 +45,17 @@ docker-compose --version
 ## Development
 
 Flask backend:
-	* ```cd backend```
-	* ```pip3.6 install -r requirements.txt```
-	* ```python3.6 app.py```
+* ```cd backend```
+* ```pip3.6 install -r requirements.txt```
+* wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
+* tar -xvf GeoLite2-City.tar.gz
+* mv GeoLite2-City\*/GeoLite2-City.mmdb .
+* ```python3.6 app.py```
 
 Angular development server:
-	* ```cd frontend```
-	* ```npm install```
-	* ```ng serve```
+* ```cd frontend```
+* ```npm install```
+* ```ng serve```
 
 ## Deployment
 

@@ -40,5 +40,10 @@ export class ApiService {
   		return this.http.get(environment.apiUrl + '/api/stats/counts')
 	}
 
+	//get geo location data
+	getGeoData(tagName: string){
+  		return this.http.post(environment.apiUrl + '/api/geo/' + tagName, null)
+	}
+
 }
 

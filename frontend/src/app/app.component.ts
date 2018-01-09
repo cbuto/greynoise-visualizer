@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {TabMenuModule,MenuItem} from 'primeng/primeng';
+import {TabMenuModule, MenuItem} from 'primeng/primeng';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent {
       //tab menu items
         this.items = [
         	{label: 'Table', icon: 'fa-database', routerLink: ['table']},
+          {label: 'Map', icon: 'fa-map', routerLink: ['map']},
           {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
         ];
     }

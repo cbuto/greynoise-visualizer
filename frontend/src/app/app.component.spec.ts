@@ -9,11 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { TableComponent } from './table/table.component';
 import { StatsComponent } from './stats/stats.component';
+import { MapComponent } from './map/map.component';
 
 describe('AppComponent', () => {
 
@@ -26,7 +29,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         TableComponent,
-        StatsComponent
+        StatsComponent,
+        MapComponent
       ],
       imports: [
         BrowserModule,
@@ -40,7 +44,9 @@ describe('AppComponent', () => {
         ChartModule,
         BlockUIModule,
         FormsModule,
-        PanelModule
+        PanelModule,
+        LeafletModule,
+        LeafletMarkerClusterModule
       ],
       providers: [ApiService,
       {provide: APP_BASE_HREF, useValue: '/'}],
@@ -66,7 +72,7 @@ describe('AppComponent', () => {
         {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
       ];
       const menu = debugElement.queryAll(By.css('.ui-tabmenu-nav li'));
-      expect(menu.length).toBe(2);
+      expect(menu.length).toBe(3);
   }));
   
 });

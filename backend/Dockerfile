@@ -8,6 +8,12 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
+RUN wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
+
+RUN tar -xvf GeoLite2-City.tar.gz
+
+RUN mv GeoLite2-City*/GeoLite2-City.mmdb .
+
 CMD [ "gunicorn", "--workers", "4", \
                "--bind", "0.0.0.0:8080", \
                "-k", "gevent", \
