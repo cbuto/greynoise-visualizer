@@ -16,7 +16,7 @@ The quickest way deploy this project is to use docker-compose. In order to set u
 For development:
 
 * Python 3.6 
-* GeoLite2 City database - geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+* [GeoLite2 City database](geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz)
 * [Node.js](https://nodejs.org/en/download/package-manager/)
 * Angular CLI - ```npm install -g @angular/cli```
 
@@ -47,9 +47,9 @@ docker-compose --version
 Flask backend:
 * ```cd backend```
 * ```pip3.6 install -r requirements.txt```
-* wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
-* tar -xvf GeoLite2-City.tar.gz
-* mv GeoLite2-City\*/GeoLite2-City.mmdb .
+* ```wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"```
+* ```tar -xvf GeoLite2-City.tar.gz```
+* ```mv GeoLite2-City\*/GeoLite2-City.mmdb .```
 * ```python3.6 app.py```
 
 Angular development server:
