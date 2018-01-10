@@ -9,7 +9,7 @@ Excerpt from the [GreyNoise](https://github.com/Grey-Noise-Intelligence/api.grey
 
 ## Getting Started
 
-The quickest way [deploy](#Deployment) this project is by using docker-compose; however, in order to set up a development environment, follow the steps in the [development](#Development) section. 
+The quickest way [deploy](#deployment) this project is by using docker-compose; however, in order to set up a development environment, follow the steps in the [development](#development) section. 
 
 ### Prerequisites
 
