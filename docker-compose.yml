@@ -16,8 +16,6 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    volumes:
-      - ./backend:/app
 
  # ============================================================================
   # NGINX SERVER CONTAINER

@@ -8,11 +8,9 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-RUN wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
-
-RUN tar -xvf GeoLite2-City.tar.gz
-
-RUN mv GeoLite2-City*/GeoLite2-City.mmdb .
+RUN wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz" \
+&& tar -xvf GeoLite2-City.tar.gz \ 
+&& mv GeoLite2-City*/GeoLite2-City.mmdb .
 
 RUN chown root:root GeoLite2-City.mmdb
 
