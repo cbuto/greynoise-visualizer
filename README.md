@@ -49,7 +49,7 @@ docker-compose --version
 * ```pip3.6 install -r requirements.txt```
 * ```wget "geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"```
 * ```tar -xvf GeoLite2-City.tar.gz```
-* ```mv GeoLite2-City\*/GeoLite2-City.mmdb .```
+* ```mv GeoLite2-City*/GeoLite2-City.mmdb .```
 * ```python3.6 app.py```
 
 ### Angular development server:
