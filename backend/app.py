@@ -10,7 +10,7 @@ from pandas.io.json import json_normalize
 app = Flask(__name__)
 CORS(app)
 #geoip database reader
-reader = geoip2.database.Reader('GeoLite2-City.mmdb')
+reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
 
 #cache setup
 #set FLASK_ENV_CONFIG before starting the app

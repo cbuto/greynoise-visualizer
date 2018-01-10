@@ -14,6 +14,8 @@ RUN tar -xvf GeoLite2-City.tar.gz
 
 RUN mv GeoLite2-City*/GeoLite2-City.mmdb .
 
+RUN chown root:root GeoLite2-City.mmdb
+
 CMD [ "gunicorn", "--workers", "4", \
                "--bind", "0.0.0.0:8080", \
                "-k", "gevent", \
