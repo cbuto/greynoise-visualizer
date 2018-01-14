@@ -40,7 +40,7 @@ describe('TableComponent', () => {
               }]
             });
           },
-         getTagData(tagName) {
+         getTagData(tagName: string) {
            return Observable.of({
               "records": [
               {
@@ -95,8 +95,5 @@ describe('TableComponent', () => {
     });
 
   }));
-
-
-
   
 });

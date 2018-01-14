@@ -131,6 +131,32 @@ describe('ApiService', () => {
     httpMock.verify();
   }));
 
+  it('should successfully get geo data', inject([
+      HttpTestingController, ApiService
+    ], (httpMock, apiService) => {
+    let response = {
+              "record": [
+                        {
+                          "ip": "66.249.80.1",
+                          "lat": 32.7787,
+                          "long": -96.8217
+                        },
+                        {
+                          "ip": "66.102.6.191",
+                          "lat": 37.419200000000004,
+                          "long": -122.0574
+                        }
+                      ]
+              };
+    apiService.getGeoData("GOOGLEBOT")
+                 .subscribe(data => {
+                   expect(data).toEqual(response);
+                 });
+    const tagNameRequest = httpMock.expectOne(environment.apiUrl + '/api/geo/GOOGLEBOT'); 
+    tagNameRequest.flush(response);
+    httpMock.verify();
+  }));
+
 });
 
 

@@ -140,7 +140,7 @@ describe('StatsComponent', () => {
     fixture.detectChanges();    
 
     fixture.whenStable().then(() => {
-      expect(spy).toHaveBeenCalledWith("GOOGLEBOT");
+      expect(spy).toHaveBeenCalled();
     });
   }));
 

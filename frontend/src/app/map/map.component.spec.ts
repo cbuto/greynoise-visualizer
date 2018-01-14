@@ -95,4 +95,5 @@ describe('MapComponent', () => {
       expect(spy).toHaveBeenCalled();
     });
   }));
+
 });
