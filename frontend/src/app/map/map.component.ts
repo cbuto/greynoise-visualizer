@@ -7,7 +7,7 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {SharedModule, DropdownModule, SelectItem } from 'primeng/primeng';
+import {SharedModule, DropdownModule, SelectItem, BlockUIModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-map',
@@ -20,6 +20,7 @@ export class MapComponent implements OnInit {
 
   //map
   geoData: any;
+  loadingMap: boolean;
 
   // Open Street Map definitions (original - http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png)
   LAYER_OSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.' });
@@ -52,7 +53,7 @@ export class MapComponent implements OnInit {
   }
   	//on dropdown change, load data into map
   	tagChangeMap(value){
-  		//clear previous layers (data)
+  	  	//clear previous layers (data)
   		this.markerClusterGroup.clearLayers();
   		//call getGeoData to retreive lat/long of IPs
 		this.getGeoData(value).subscribe(_ => {;
@@ -72,11 +73,11 @@ export class MapComponent implements OnInit {
 				this.markerList.push(marker);
 			}
 
-			this.markerClusterData = this.markerList
+			this.markerClusterData = this.markerList;
 
 			//add layers to cluster group
-			this.markerClusterGroup.addLayers(this.markerClusterData)
-						
+			this.markerClusterGroup.addLayers(this.markerClusterData);
+			this.loadingMap = false;
     	});	
 	}
 
@@ -85,7 +86,7 @@ export class MapComponent implements OnInit {
 		this.markerClusterGroup = group;
 
 	}
-  	//get only tag names (used to view map based on tag selection)
+  	//get only tag names (used to create dropdown for map)
 	getOnlyNames(){
 		return this._apiService
 			.getOnlyNames()
@@ -100,7 +101,7 @@ export class MapComponent implements OnInit {
 
   //used to get geo location data for a selected tag
 	getGeoData(tagName){
-		//this.loadingMap = true;
+		this.loadingMap = true;
 		return this._apiService
 			.getGeoData(tagName)
 			.map(

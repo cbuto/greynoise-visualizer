@@ -47,6 +47,13 @@ export class StatsComponent implements OnInit {
 	constructor(private _apiService: ApiService) {}
 
 	ngOnInit() {
+		this.createDropdown();
+		this.createDoughnutCharts();
+		
+	}	
+
+	//create dropdown for time series
+	createDropdown(){
 		//subcribe to getOnlyNames to create dropdown for time series
 		this.getOnlyNames().subscribe(_ => {;
 			this.timeSeriesDropdownTemp = this.tagNames.tags.map(data => data.name);
@@ -54,7 +61,10 @@ export class StatsComponent implements OnInit {
 				this.timeSeriesDropdown.push({label: name, value: name});
 			}
 		});
+	}
 
+	//subcribe to data and create charts
+	createDoughnutCharts(){
 		//subscribe to getCounts and plot doughnut charts
 		this.getCounts().subscribe(_ => {;
 			this.loadingAll = false;
@@ -153,9 +163,8 @@ export class StatsComponent implements OnInit {
 				}
 			};
     	});	
+	}
 
-    	
-	}	
 	//get only tag names (used to view time series based on tag selection)
 	getOnlyNames(){
 		return this._apiService

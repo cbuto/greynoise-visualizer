@@ -28,15 +28,22 @@ export class TableComponent implements OnInit {
 	confidenceOptions: any[] = []
 
 	//loading 
-	loading: boolean;
-	loadingDetail: boolean;
-	blocked: boolean = false;
+	loading: boolean; //full table
+	loadingDetail: boolean; 
 
 	constructor(private _apiService: ApiService) {}
 
 	ngOnInit() {
+		this.createFiltersForTable();
+		//set confidence filter options (static because only three options for now (change?))
+		this.confidenceOptions.push({label: 'All', value: null});
+		this.confidenceOptions.push({label: 'high', value: 'high'});
+		this.confidenceOptions.push({label: 'medium', value: 'medium'});
+		this.confidenceOptions.push({label: 'low', value: 'low'});
+	}
+
+	createFiltersForTable(){
 		//subcribe to getTags and create filters for columns
-		//
 		this.getTags().subscribe(_ => {;
 			this.loading = false; //stop loading icon
 			
@@ -76,11 +83,6 @@ export class TableComponent implements OnInit {
 
     	});    	
 
-		//set confidence filter options (static because only three options (change?))
-		this.confidenceOptions.push({label: 'All', value: null});
-		this.confidenceOptions.push({label: 'high', value: 'high'});
-		this.confidenceOptions.push({label: 'medium', value: 'medium'});
-		this.confidenceOptions.push({label: 'low', value: 'low'});
 	}
 	//get tag information for main table (name, category, intention, and confidence)
 	getTags(){

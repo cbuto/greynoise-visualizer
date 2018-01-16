@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {SharedModule, DropdownModule, SelectItem } from 'primeng/primeng';
+import {SharedModule, DropdownModule, SelectItem, BlockUIModule } from 'primeng/primeng';
 import { MapComponent } from './map.component';
 
 describe('MapComponent', () => {
@@ -28,7 +28,8 @@ describe('MapComponent', () => {
         SharedModule,
         DropdownModule,
         LeafletModule,
-        LeafletMarkerClusterModule       
+        LeafletMarkerClusterModule,
+        BlockUIModule     
       ],
       providers: [
         {
