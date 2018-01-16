@@ -1,12 +1,12 @@
 <!-- Block map when loading -->
-<p-blockUI [blocked]="loadingMap" [target]="map">
+<p-blockUI [blocked]="loadingMap">
     <div><i class="fa fa-cog fa-spin fa-3x"></i></div>
 </p-blockUI>
 <div class="ui-g">
 	<div class="ui-g-12" style="text-align: center;">
 	    <p-dropdown id="map-drop" [options]="mapDropdownOptions" placeholder="Select a tag" [filter]="true" (onChange)=tagChangeMap($event.value)></p-dropdown>
 	</div>
-    <div id="map" class = "ui-g-12" leaflet style="height: 450px;"
+    <div class = "ui-g-12" leaflet style="height: 450px;"
 	 [leafletOptions]="options"
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"
