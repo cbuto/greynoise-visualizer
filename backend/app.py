@@ -12,6 +12,11 @@ CORS(app)
 #geoip database reader
 reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
 
+#add header (user agent)
+headers = {
+    'User-Agent': 'Grey Noise Visualizer'
+}
+
 #cache setup
 #set FLASK_ENV_CONFIG before starting the app
 #dev uses simple cache and prod uses redis (docker container)
@@ -41,7 +46,6 @@ def make_cache_key(*args, **kwargs):
 def api_get_tags():
     ''' Get all tags from grey noise'''
     tagNames = getTags()
-    #only return ip , first seen, last updated
     return jsonify({
               'tags' :  tagNames
             }) 
@@ -53,7 +57,7 @@ def api_get_only_tag_names():
     ''' Get all tags from grey noise'''
     try:
         #request api for tag names
-        req = requests.get('http://api.greynoise.io:8888/v1/query/list')
+        req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
         if req.status_code == 200:
             #get json
             onlyTagNames = req.json()
@@ -160,7 +164,7 @@ def counter_of_things(items):
 def getTagData(tag):
     try:
         #request tag instances from greynoise
-        req = requests.post('http://api.greynoise.io:8888/v1/query/tag', ({'tag': tag.upper()}))
+        req = requests.post('http://api.greynoise.io:8888/v1/query/tag', ({'tag': tag.upper()}), headers=headers)
         if req.status_code == 200:
             allTagData = req.json()
             finalTagData = []
@@ -181,6 +185,11 @@ def getTagData(tag):
                 newTagData['ip'] = section['ip']
                 newTagData['first_seen'] = section['first_seen']
                 newTagData['last_updated'] = section['last_updated']
+                newTagData['org'] = section['metadata']['org']
+                newTagData['rdns'] = section['metadata']['rdns']
+                newTagData['rdns_parent'] = section['metadata']['rdns_parent']
+                newTagData['asn'] = section['metadata']['asn']
+
                 finalTagData.append(newTagData)
 
             return finalTagData
@@ -196,7 +205,7 @@ def getTagData(tag):
 def getTags():
     try:
         #request tag names from greynoise
-        req = requests.get('http://api.greynoise.io:8888/v1/query/list')
+        req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
         if req.status_code == 200:
             allTagNames = req.json()
             finalTagData = []

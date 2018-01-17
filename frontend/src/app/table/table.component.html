@@ -33,6 +33,10 @@
     <ng-template let-row pTemplate="rowexpansion">
        <p-dataTable [value]="eventData[row.name]" [rows]="15" [paginator]="true" [loading]="loadingDetail" [tableStyle]="{'table-layout':'auto'}" #detailTable>
             <p-column field="ip" header="IP" [sortable]="true"></p-column>
+            <p-column field="asn" header="ASN" [sortable]="true"></p-column>
+            <p-column field="org" header="Organization" [sortable]="true"></p-column>
+            <p-column field="rdns" header="rDNS" [sortable]="true"></p-column>
+            <p-column field="rdns_parent" header="rDNS Parent" [sortable]="true"></p-column>
             <p-column field="first_seen" header="First Seen" [sortable]="true"></p-column>
             <p-column field="last_updated" header="Last Updated" [sortable]="true"></p-column>
         </p-dataTable>

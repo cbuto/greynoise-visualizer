@@ -83,25 +83,34 @@ class TestApi(unittest.TestCase):
         """test api call to get tag data (instances)"""
         tagData = [
                       {
-                        "category": "search_engine", 
-                        "confidence": "high", 
-                        "first_seen": "2018-01-03T22:47:16.556Z", 
-                        "intention": "Null", 
-                        "ip": "37.9.113.90",
-                        "last_updated": "2018-01-03T22:47:16.556Z", 
-                        "name": "YANDEX_SEARCH_ENGINE"
+                        "asn": "AS13238",
+                        "category": "search_engine",
+                        "confidence": "high",
+                        "first_seen": "2017-09-27T02:27:46.235Z",
+                        "intention": "benign",
+                        "ip": "5.255.250.2",
+                        "last_updated": "2017-09-28T22:17:30.167Z",
+                        "name": "YANDEX_SEARCH_ENGINE",
+                        "org": "YANDEX LLC",
+                        "rdns": "5-255-250-2.spider.yandex.com",
+                        "rdns_parent": "yandex.com"
+
                       }
                   ]
         finalTagData = { 
                       "records": [
                         {
-                            "category": "search_engine", 
-                            "confidence": "high", 
-                            "first_seen": "2018-01-03T22:47:16.556Z", 
-                            "intention": "Null", 
-                            "ip": "37.9.113.90",
-                            "last_updated": "2018-01-03T22:47:16.556Z", 
-                            "name": "YANDEX_SEARCH_ENGINE"
+                          "asn": "AS13238",
+                          "category": "search_engine",
+                          "confidence": "high",
+                          "first_seen": "2017-09-27T02:27:46.235Z",
+                          "intention": "benign",
+                          "ip": "5.255.250.2",
+                          "last_updated": "2017-09-28T22:17:30.167Z",
+                          "name": "YANDEX_SEARCH_ENGINE",
+                          "org": "YANDEX LLC",
+                          "rdns": "5-255-250-2.spider.yandex.com",
+                          "rdns_parent": "yandex.com"
                         }]
                       }
 
@@ -177,14 +186,17 @@ class TestApi(unittest.TestCase):
         }
         finalTagData = [
                       {
+                        "asn": "AS13238",
                         "category": "search_engine", 
                         "confidence": "high", 
                         "first_seen": "2018-01-03T22:47:16.556Z", 
                         "intention": "Null", 
                         "ip": "37.9.113.90",
                         "last_updated": "2018-01-03T22:47:16.556Z", 
-                        "name": "YANDEX_SEARCH_ENGINE"
-                      }
+                        "name": "YANDEX_SEARCH_ENGINE",
+                        "org": "YANDEX LLC",
+                        "rdns": "37-9-113-90.spider.yandex.com",
+                        "rdns_parent": "yandex.com"                      }
                   ]
 
         mock_post.return_value = Mock()

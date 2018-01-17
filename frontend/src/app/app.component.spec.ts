@@ -69,6 +69,7 @@ describe('AppComponent', () => {
       let items: MenuItem[];
       this.items = [
         {label: 'Table', icon: 'fa-database', routerLink: ['']},
+        {label: 'Map', icon: 'fa-map', routerLink: ['map']},
         {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
       ];
       const menu = debugElement.queryAll(By.css('.ui-tabmenu-nav li'));
