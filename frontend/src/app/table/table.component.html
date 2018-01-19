@@ -11,7 +11,7 @@
 
 <!-- Main datatable -->
 
-<p-dataTable [value]="rows" [rows]="20" [paginator]="true" [globalFilter]="gb" expandableRows="true" (onRowExpand)="loadTagInstances($event)" (onRowClick)="tagTable.toggleRow($event.data)" [tableStyle]="{'table-layout':'auto'}"  #tagTable>
+<p-dataTable id="mainTable" [value]="rows" [rows]="20" [paginator]="true" [globalFilter]="gb" expandableRows="true" (onRowExpand)="loadTagInstances($event)" (onRowClick)="tagTable.toggleRow($event.data)" [tableStyle]="{'table-layout':'auto'}"  #tagTable>
     <p-column expander="true" styleClass="col-icon"></p-column>
     <p-column field="name" header="Name" [filter]="true" filterPlaceholder="Filter tag names" [sortable]="true" ></p-column>
     <p-column field="category" header="Category" [filter]="true" filterMatchMode="equals" [sortable]="true">
@@ -31,7 +31,7 @@
     </p-column>
     <!-- sub datatables -->
     <ng-template let-row pTemplate="rowexpansion">
-       <p-dataTable [value]="eventData[row.name]" [rows]="15" [paginator]="true" [loading]="loadingDetail" [tableStyle]="{'table-layout':'auto'}" #detailTable>
+       <p-dataTable id="secondaryTable" [value]="eventData[row.name]" [rows]="15" [paginator]="true" [loading]="loadingDetail" [tableStyle]="{'table-layout':'auto'}" [responsive]="true" selectionMode="single" (onRowSelect)="showDialog($event)" #detailTable>
             <p-column field="ip" header="IP" [sortable]="true"></p-column>
             <p-column field="asn" header="ASN" [sortable]="true"></p-column>
             <p-column field="org" header="Organization" [sortable]="true"></p-column>
@@ -43,3 +43,32 @@
     </ng-template>
 </p-dataTable>
 
+<!-- loading modal -->
+<p-blockUI [blocked]="loadingIP" [target]="ipTable">
+    <div><i class="fa fa-cog fa-spin fa-5x"></i></div>
+</p-blockUI>
+
+<p-dialog header="Other Associated Tags" [(visible)]="display" [modal]="true" [dismissableMask]="true" >
+
+    <p-dataTable [value]="ipEventData" [rows]="20" [paginator]="true" [tableStyle]="{'table-layout':'auto'}" #ipTable>
+        <p-column field="name" header="Name" [filter]="true" filterPlaceholder="Filter tag names" [sortable]="true" ></p-column>
+        <p-column field="category" header="Category" [filter]="true" filterMatchMode="equals" [sortable]="true">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="selectCategory" [style]="{'width':'100%'}" (onChange)="ipTable.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+        <p-column field="intention" header="Intention" [filter]="true" filterMatchMode="equals" [sortable]="true">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="selectIntention" [style]="{'width':'100%'}" (onChange)="ipTable.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+        <p-column field="confidence" header="Confidence" [filter]="true" filterMatchMode="equals" [sortable]="true">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="confidenceOptions" [style]="{'width':'100%'}" (onChange)="ipTable.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+        <p-column field="first_seen" header="First Seen" [sortable]="true"></p-column>
+        <p-column field="last_updated" header="Last Updated" [sortable]="true"></p-column>
+    </p-dataTable>
+
+</p-dialog>

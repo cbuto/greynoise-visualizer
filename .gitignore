@@ -6,10 +6,13 @@ frontend/dist
 # dependencies
 frontend/node_modules
 
-#python cache
+#python stuff
 backend/__pycache__
+backend/.coverage
+backend/GeoLite2-City.mmdb
 
 # System Files
 .DS_Store
 Thumbs.db
 *.sublime-workspace
+

@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ApiService} from '../api.service';
-import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule } from 'primeng/primeng';
+import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule, DialogModule } from 'primeng/primeng';
 
 import { TableComponent } from './table.component';
 
@@ -24,7 +24,8 @@ describe('TableComponent', () => {
         DropdownModule, 
         BlockUIModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        DialogModule
       ],
       providers: [
         {
@@ -62,6 +63,27 @@ describe('TableComponent', () => {
                 rdns_parent: "yandex.com"
               }]
             });
+          },
+          getIpData(ip: string) {
+           return Observable.of({
+              "record": [
+                {
+                  "category": "activity", 
+                  "confidence": "low", 
+                  "first_seen": "2017-09-27T02:27:26.431Z", 
+                  "intention": "Null", 
+                  "last_updated": "2017-09-27T18:36:14.127Z", 
+                  "name": "ELASTICSEARCH_SCANNER"
+                }, 
+                {
+                  "category": "actor", 
+                  "confidence": "high", 
+                  "first_seen": "2017-09-27T02:26:31.957Z", 
+                  "intention": "benign", 
+                  "last_updated": "2017-10-19T01:35:34.114Z", 
+                  "name": "SHODAN"
+                }]
+            });
           }
         }
       }
@@ -82,9 +104,9 @@ describe('TableComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display data in table', async(() => {
+  it('should display data in main table', async(() => {
     fixture.detectChanges();
-    const cells = debugElement.queryAll(By.css('tr.ui-widget-content'));
+    const cells = debugElement.queryAll(By.css('#mainTable tr.ui-widget-content'));
 
     expect(cells.length).toBe(1);
    }));
@@ -93,13 +115,36 @@ describe('TableComponent', () => {
     const spy = spyOn(component, 'loadTagInstances');
     fixture.detectChanges();
 
-    const cell = debugElement.queryAll(By.css('.ui-datatable-even .ui-cell-data'))[0];
+    const cell = debugElement.queryAll(By.css('#mainTable .ui-datatable-even .ui-cell-data'))[0];
     spy.and.callThrough();
     cell.nativeElement.click();
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
        expect(spy).toHaveBeenCalled();
+    });
+
+  }));
+
+  it('should call showDialog on IP row select', async(() => {
+    const spyIP = spyOn(component, 'showDialog').and.callThrough();
+    fixture.detectChanges();
+
+    const spyTagInstances = spyOn(component, 'loadTagInstances');
+    fixture.detectChanges();
+
+    const cell = debugElement.queryAll(By.css('#mainTable .ui-datatable-even .ui-cell-data'))[0];
+    spyTagInstances.and.callThrough();
+    cell.nativeElement.click();
+    fixture.detectChanges();
+    
+
+    const row = debugElement.queryAll(By.css('#secondaryTable .ui-datatable-even .ui-cell-data'))[0];
+    row.nativeElement.click();
+    fixture.detectChanges();    
+
+    fixture.whenStable().then(() => {
+      expect(spyIP).toHaveBeenCalled();
     });
 
   }));

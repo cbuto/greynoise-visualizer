@@ -80,7 +80,7 @@ def api_get_only_tag_names():
 
 #returns tag instances for a specified tag
 #calls getTagData to get data
-@app.route('/api/tags/<tag>', methods = ['POST'])
+@app.route('/api/tags/<tag>', methods = ['GET'])
 @cache.cached(timeout=86400, key_prefix=make_cache_key)
 def api_get_tagData(tag):
     ''' Get tag instances (ip info) from greynoise'''
@@ -93,7 +93,7 @@ def api_get_tagData(tag):
 
 #returns IP and location for each instances of a specified tag
 #calls getTagIpGeo to get data
-@app.route('/api/geo/<tag>', methods = ['POST'])
+@app.route('/api/geo/<tag>', methods = ['GET'])
 @cache.cached(timeout=86400, key_prefix=make_cache_key)
 def api_get_tag_geo(tag):
     ''' Get tag IPs from greynoise and use geoip2 to get lat/long of IP'''
@@ -120,6 +120,18 @@ def api_get_stats_counts():
               'counts' :  counts
             }) 
 
+#returns other tags associated with an IP
+#calls getIpData to get data
+@app.route('/api/ip/<ip>', methods = ['GET'])
+@cache.cached(timeout=86400, key_prefix=make_cache_key)
+def api_get_IpData(ip):
+    ''' Get tag instances (ip info) from greynoise'''
+
+    ipData = getIpData(ip)
+
+    return jsonify({
+              'records' :  ipData
+            }) 
 #counts occurrences for intentions and categories
 def counter_of_things(items):
     #count items
@@ -247,9 +259,45 @@ def getTagIpGeo(tag):
 
     return finalTagData
 
+#
+@cache.memoize(timeout=86400)
+def getIpData(ip):
+    try:
+        #request tag instances from greynoise
+        req = requests.post('http://api.greynoise.io:8888/v1/query/ip', ({'ip': ip}), headers=headers)
+        if req.status_code == 200:
+            allIpData = req.json()
+            finalIpData = []
+
+            #for each tag associated with an IP
+            #rearrange data
+            for section in allIpData['records']:
+                newTagData = {}
+                newTagData['name'] = section['name']
+                newTagData['category'] = section['category']
+                newTagData['confidence'] = section['confidence']
+                # set intention to 'Null' if empty
+                if(not section['intention']):
+                    newTagData['intention'] = 'Null'
+                else:
+                    newTagData['intention'] = section['intention']
+                newTagData['first_seen'] = section['first_seen']
+                newTagData['last_updated'] = section['last_updated']
+
+                finalIpData.append(newTagData)
+
+            return finalIpData
+        else:
+
+            return {}
+            
+    except Exception as e:
+        return e 
+
+
 #source: https://github.com/phyler/greynoise
 #time series calculations
-@app.route('/api/stats/<tagName>', methods = ['POST'])
+@app.route('/api/stats/<tagName>', methods = ['GET'])
 @cache.cached(timeout=86400, key_prefix=make_cache_key)
 def get_time_series_data(tagName):
     """get time series data for tag"""

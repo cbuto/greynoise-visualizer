@@ -27,12 +27,12 @@ export class ApiService {
 
 	//get tag instances (IPs, last seen date, and last updated date)
 	getTagData(tagName: string){
-  		return this.http.post(environment.apiUrl + '/api/tags/' + tagName, null)
+  		return this.http.get(environment.apiUrl + '/api/tags/' + tagName)
 	}
 
 	//get time series data
 	getTimeSeries(tagName: string){
-  		return this.http.post(environment.apiUrl + '/api/stats/' + tagName, null)
+  		return this.http.get(environment.apiUrl + '/api/stats/' + tagName)
 	}
 
 	//get counts (intention, categories) for doughnut charts
@@ -42,8 +42,12 @@ export class ApiService {
 
 	//get geo location data
 	getGeoData(tagName: string){
-  		return this.http.post(environment.apiUrl + '/api/geo/' + tagName, null)
+  		return this.http.get(environment.apiUrl + '/api/geo/' + tagName)
 	}
 
+	//get IP data
+	getIpData(ip: string){
+  		return this.http.get(environment.apiUrl + '/api/ip/' + ip)
+	}
 }
 

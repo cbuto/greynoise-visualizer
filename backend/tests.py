@@ -117,9 +117,41 @@ class TestApi(unittest.TestCase):
         mock_get_tag_data.return_value = Mock()
         mock_get_tag_data.return_value = tagData
 
-        response = self.app.post("/api/tags/YANDEX_SEARCH_ENGINE")
+        response = self.app.get("/api/tags/YANDEX_SEARCH_ENGINE")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.data), finalTagData)
+
+    @patch('app.getIpData')
+    def test_api_get_IpData(self, mock_get_ip_data):
+        """test api call to get associated tags for an IP"""
+        ipData = [
+                    {
+                      "category": "activity", 
+                      "confidence": "low", 
+                      "first_seen": "2017-09-27T02:27:26.431Z", 
+                      "intention": "Null", 
+                      "last_updated": "2017-09-27T18:36:14.127Z", 
+                      "name": "ELASTICSEARCH_SCANNER"
+                    }
+                  ]
+        finalIpData = { 
+                      "records": [
+                        {
+                          "category": "activity", 
+                          "confidence": "low", 
+                          "first_seen": "2017-09-27T02:27:26.431Z", 
+                          "intention": "Null", 
+                          "last_updated": "2017-09-27T18:36:14.127Z", 
+                          "name": "ELASTICSEARCH_SCANNER"
+                        }]
+                      }
+
+        mock_get_ip_data.return_value = Mock()
+        mock_get_ip_data.return_value = ipData
+
+        response = self.app.get("/api/ip/198.20.69.74")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.data), finalIpData)
 
 
     @patch('app.getTags')
@@ -169,7 +201,7 @@ class TestApi(unittest.TestCase):
                   "first_seen": "2018-01-03T22:47:16.556Z",
                   "last_updated": "2018-01-03T22:47:16.556Z",
                   "confidence": "high",
-                  "intention": "",
+                  "intention": "benign",
                   "category": "search_engine",
                   "metadata": {
                     "org": "YANDEX LLC",
@@ -190,13 +222,14 @@ class TestApi(unittest.TestCase):
                         "category": "search_engine", 
                         "confidence": "high", 
                         "first_seen": "2018-01-03T22:47:16.556Z", 
-                        "intention": "Null", 
+                        "intention": "benign", 
                         "ip": "37.9.113.90",
                         "last_updated": "2018-01-03T22:47:16.556Z", 
                         "name": "YANDEX_SEARCH_ENGINE",
                         "org": "YANDEX LLC",
                         "rdns": "37-9-113-90.spider.yandex.com",
-                        "rdns_parent": "yandex.com"                      }
+                        "rdns_parent": "yandex.com"                      
+                      }
                   ]
 
         mock_post.return_value = Mock()
@@ -206,6 +239,54 @@ class TestApi(unittest.TestCase):
         response = app.getTagData("YANDEX_SEARCH_ENGINE")
 
         self.assertEqual(response, finalTagData)
+
+
+    @patch('app.requests.post')
+    def test_getIpData(self, mock_post):
+        """test getTagData function"""
+        ipData = {
+              "ip": "198.20.69.74",
+              "status": "ok",
+              "returned_count": 500,
+              "records": [
+                {
+                  "name": "SHODAN",
+                  "first_seen": "2017-09-27T02:26:31.957Z",
+                  "last_updated": "2017-10-19T01:35:34.114Z",
+                  "confidence": "high",
+                  "intention": "benign",
+                  "category": "actor",
+                  "metadata": {
+                    "org": "SingleHop, Inc.",
+                    "rdns": "census1.shodan.io",
+                    "rdns_parent": "shodan.io",
+                    "datacenter": "SingleHop",
+                    "asn": "AS32475",
+                    "os": "Linux 3.11+",
+                    "link": "Ethernet or modem",
+                    "tor": "false"
+                  }
+                }
+            ]
+        }
+        finalIpData = [
+                      {
+                        "category": "actor",
+                        "confidence": "high",
+                        "first_seen": "2017-09-27T02:26:31.957Z",
+                        "intention": "benign",
+                        "last_updated": "2017-10-19T01:35:34.114Z",
+                        "name": "SHODAN"
+                      }
+                  ]
+
+        mock_post.return_value = Mock()
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.json.return_value = ipData
+
+        response = app.getIpData("198.20.69.74")
+
+        self.assertEqual(response, finalIpData)
 
     @patch('app.requests.get')
     def test_getTags(self, mock_get):
@@ -219,7 +300,7 @@ class TestApi(unittest.TestCase):
                     {
                       "category": "search_engine",
                       "confidence": "high",
-                      "intention": "Null",
+                      "intention": "benign",
                       "name": "YANDEX_SEARCH_ENGINE"
                     }]
 
@@ -298,7 +379,7 @@ class TestApi(unittest.TestCase):
         mock_get_tag_data.return_value = Mock()
         mock_get_tag_data.return_value = tagData
 
-        tagDataResponse = self.app.post("/api/stats/YANDEX_SEARCH_ENGINE")
+        tagDataResponse = self.app.get("/api/stats/YANDEX_SEARCH_ENGINE")
         self.assertEqual(tagDataResponse.status_code, 200)
         self.assertEqual(json.loads(tagDataResponse.data), finalTagData)
 
@@ -377,7 +458,7 @@ class TestApi(unittest.TestCase):
         mock_get_tag_data.return_value = Mock()
         mock_get_tag_data.return_value = tagData
 
-        tagDataResponse = self.app.post("/api/geo/GOOGLEBOT")
+        tagDataResponse = self.app.get("/api/geo/GOOGLEBOT")
         self.assertEqual(tagDataResponse.status_code, 200)
         self.assertEqual(json.loads(tagDataResponse.data), finalTagData)
 

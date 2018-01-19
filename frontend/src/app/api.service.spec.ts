@@ -157,6 +157,38 @@ describe('ApiService', () => {
     httpMock.verify();
   }));
 
+  it('should successfully get ip data', inject([
+      HttpTestingController, ApiService
+    ], (httpMock, apiService) => {
+    let response = {
+              "record": [
+                          {
+                            "category": "activity", 
+                            "confidence": "low", 
+                            "first_seen": "2017-09-27T02:27:26.431Z", 
+                            "intention": "Null", 
+                            "last_updated": "2017-09-27T18:36:14.127Z", 
+                            "name": "ELASTICSEARCH_SCANNER"
+                          }, 
+                          {
+                            "category": "actor", 
+                            "confidence": "high", 
+                            "first_seen": "2017-09-27T02:26:31.957Z", 
+                            "intention": "benign", 
+                            "last_updated": "2017-10-19T01:35:34.114Z", 
+                            "name": "SHODAN"
+                          }
+                      ]
+              };
+    apiService.getIpData("198.20.69.74")
+                 .subscribe(data => {
+                   expect(data).toEqual(response);
+                 });
+    const ipDataRequest = httpMock.expectOne(environment.apiUrl + '/api/ip/198.20.69.74'); 
+    ipDataRequest.flush(response);
+    httpMock.verify();
+  }));
+
 });
 
 

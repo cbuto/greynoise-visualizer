@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule, ButtonModule, InputTextModule} from 'primeng/primeng';
-
+import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule, ButtonModule, InputTextModule, DialogModule} from 'primeng/primeng';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -15,11 +14,15 @@ export class TableComponent implements OnInit {
 	//general data
 	public allTags; //used in getTags 
 	public tagData; //used in getTagData 
+	public ipData;
 	rows = []; //rows for main table
 
-	//used to pass expanded row name to getTagData (load tag info on expand)
+	//used to tag data loaded on row expand (for tags)
 	eventData = {};
 
+	//used to load ip event data
+	ipEventData: any[];
+	display: any;
 	//filter options
 	selectCategory: SelectItem[];
 	categoryTemp: string[];
@@ -29,7 +32,8 @@ export class TableComponent implements OnInit {
 
 	//loading 
 	loading: boolean; //full table
-	loadingDetail: boolean; 
+	loadingDetail: boolean;  //details (row expand)
+	loadingIP: boolean; //tags associated with ip
 
 	constructor(private _apiService: ApiService) {}
 
@@ -105,7 +109,7 @@ export class TableComponent implements OnInit {
     		this.eventData[event.data['name']] = this.tagData.records 
     	});
 	}
-	//gets all tag instances (IPs and dates) for a specific tag 
+	//gets all tag instances (IPs, dates, and metadata) for a specific tag 
 	getTagData(tagName: string){
 		this.loadingDetail = true
 		return this._apiService
@@ -113,6 +117,28 @@ export class TableComponent implements OnInit {
 			.map(
 				(data) => {
 					this.tagData = data;
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
+	showDialog(event){
+		this.getIpData(event.data['ip']).subscribe(_ => {;
+			this.loadingIP = false;
+    		this.ipEventData = this.ipData.records 
+    	});
+		this.display = true;
+	}
+
+	//gets all associated tags for an IP
+	getIpData(ip: string){
+		this.loadingIP = true
+		return this._apiService
+			.getIpData(ip)
+			.map(
+				(data) => {
+					this.ipData = data;
 			})
 			.catch((error) => {
 				throw error;
