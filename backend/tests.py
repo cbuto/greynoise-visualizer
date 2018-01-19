@@ -243,7 +243,7 @@ class TestApi(unittest.TestCase):
 
     @patch('app.requests.post')
     def test_getIpData(self, mock_post):
-        """test getTagData function"""
+        """test getIpData function"""
         ipData = {
               "ip": "198.20.69.74",
               "status": "ok",
