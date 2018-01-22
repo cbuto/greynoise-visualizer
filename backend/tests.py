@@ -86,15 +86,15 @@ class TestApi(unittest.TestCase):
                         "asn": "AS13238",
                         "category": "search_engine",
                         "confidence": "high",
+                        "datacenter": "",
                         "first_seen": "2017-09-27T02:27:46.235Z",
                         "intention": "benign",
                         "ip": "5.255.250.2",
                         "last_updated": "2017-09-28T22:17:30.167Z",
                         "name": "YANDEX_SEARCH_ENGINE",
                         "org": "YANDEX LLC",
-                        "rdns": "5-255-250-2.spider.yandex.com",
-                        "rdns_parent": "yandex.com"
-
+                        "os": "Windows XP",
+                        "rdns": "5-255-250-2.spider.yandex.com"
                       }
                   ]
         finalTagData = { 
@@ -103,14 +103,15 @@ class TestApi(unittest.TestCase):
                           "asn": "AS13238",
                           "category": "search_engine",
                           "confidence": "high",
+                          "datacenter": "",
                           "first_seen": "2017-09-27T02:27:46.235Z",
                           "intention": "benign",
                           "ip": "5.255.250.2",
                           "last_updated": "2017-09-28T22:17:30.167Z",
                           "name": "YANDEX_SEARCH_ENGINE",
                           "org": "YANDEX LLC",
-                          "rdns": "5-255-250-2.spider.yandex.com",
-                          "rdns_parent": "yandex.com"
+                          "os": "Windows XP",
+                          "rdns": "5-255-250-2.spider.yandex.com"
                         }]
                       }
 
@@ -221,14 +222,15 @@ class TestApi(unittest.TestCase):
                         "asn": "AS13238",
                         "category": "search_engine", 
                         "confidence": "high", 
-                        "first_seen": "2018-01-03T22:47:16.556Z", 
+                        "datacenter": "",
+                        "first_seen": "2018-01-03", 
                         "intention": "benign", 
                         "ip": "37.9.113.90",
-                        "last_updated": "2018-01-03T22:47:16.556Z", 
+                        "last_updated": "2018-01-03", 
                         "name": "YANDEX_SEARCH_ENGINE",
                         "org": "YANDEX LLC",
-                        "rdns": "37-9-113-90.spider.yandex.com",
-                        "rdns_parent": "yandex.com"                      
+                        "os": "Linux 2.2-3.x",
+                        "rdns": "37-9-113-90.spider.yandex.com"                     
                       }
                   ]
 
@@ -273,9 +275,9 @@ class TestApi(unittest.TestCase):
                       {
                         "category": "actor",
                         "confidence": "high",
-                        "first_seen": "2017-09-27T02:26:31.957Z",
+                        "first_seen": "2017-09-27",
                         "intention": "benign",
-                        "last_updated": "2017-10-19T01:35:34.114Z",
+                        "last_updated": "2017-10-19",
                         "name": "SHODAN"
                       }
                   ]

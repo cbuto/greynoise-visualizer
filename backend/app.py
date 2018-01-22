@@ -193,14 +193,15 @@ def getTagData(tag):
                     newTagData['intention'] = 'Null'
                 else:
                     newTagData['intention'] = section['intention']
-
+                    
                 newTagData['ip'] = section['ip']
-                newTagData['first_seen'] = section['first_seen']
-                newTagData['last_updated'] = section['last_updated']
+                newTagData['first_seen'] = section['first_seen'].split('T')[0]
+                newTagData['last_updated'] = section['last_updated'].split('T')[0]
                 newTagData['org'] = section['metadata']['org']
                 newTagData['rdns'] = section['metadata']['rdns']
-                newTagData['rdns_parent'] = section['metadata']['rdns_parent']
                 newTagData['asn'] = section['metadata']['asn']
+                newTagData['os'] = section['metadata']['os']
+                newTagData['datacenter'] = section['metadata']['datacenter']
 
                 finalTagData.append(newTagData)
 
@@ -281,8 +282,8 @@ def getIpData(ip):
                     newTagData['intention'] = 'Null'
                 else:
                     newTagData['intention'] = section['intention']
-                newTagData['first_seen'] = section['first_seen']
-                newTagData['last_updated'] = section['last_updated']
+                newTagData['first_seen'] = section['first_seen'].split('T')[0]
+                newTagData['last_updated'] = section['last_updated'].split('T')[0]
 
                 finalIpData.append(newTagData)
 

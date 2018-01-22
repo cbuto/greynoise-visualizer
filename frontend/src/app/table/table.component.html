@@ -11,7 +11,7 @@
 
 <!-- Main datatable -->
 
-<p-dataTable id="mainTable" [value]="rows" [rows]="20" [paginator]="true" [globalFilter]="gb" expandableRows="true" (onRowExpand)="loadTagInstances($event)" (onRowClick)="tagTable.toggleRow($event.data)" [tableStyle]="{'table-layout':'auto'}"  #tagTable>
+<p-dataTable id="mainTable" [value]="rows" [rows]="20" [paginator]="true" [globalFilter]="gb" expandableRows="true" (onRowExpand)="loadTagInstances($event)" (onRowClick)="tagTable.toggleRow($event.data)" [tableStyle]="{'table-layout':'auto'}" [scrollable] = "true" #tagTable>
     <p-column expander="true" styleClass="col-icon"></p-column>
     <p-column field="name" header="Name" [filter]="true" filterPlaceholder="Filter tag names" [sortable]="true" ></p-column>
     <p-column field="category" header="Category" [filter]="true" filterMatchMode="equals" [sortable]="true">
@@ -31,12 +31,13 @@
     </p-column>
     <!-- sub datatables -->
     <ng-template let-row pTemplate="rowexpansion">
-       <p-dataTable id="secondaryTable" [value]="eventData[row.name]" [rows]="15" [paginator]="true" [loading]="loadingDetail" [tableStyle]="{'table-layout':'auto'}" [responsive]="true" selectionMode="single" (onRowSelect)="showDialog($event)" #detailTable>
+       <p-dataTable id="secondaryTable" [value]="eventData[row.name]" [rows]="15" [paginator]="true" [loading]="loadingDetail" [tableStyle]="{'table-layout':'auto'}"  selectionMode="single" (onRowSelect)="showDialog($event)" #detailTable>
             <p-column field="ip" header="IP" [sortable]="true"></p-column>
-            <p-column field="asn" header="ASN" [sortable]="true"></p-column>
             <p-column field="org" header="Organization" [sortable]="true"></p-column>
+            <p-column field="asn" header="ASN" [sortable]="true"></p-column>
             <p-column field="rdns" header="rDNS" [sortable]="true"></p-column>
-            <p-column field="rdns_parent" header="rDNS Parent" [sortable]="true"></p-column>
+            <p-column field="os" header="OS" [sortable]="true"></p-column>
+            <p-column field="datacenter" header="Datacenter" [sortable]="true"></p-column>
             <p-column field="first_seen" header="First Seen" [sortable]="true"></p-column>
             <p-column field="last_updated" header="Last Updated" [sortable]="true"></p-column>
         </p-dataTable>

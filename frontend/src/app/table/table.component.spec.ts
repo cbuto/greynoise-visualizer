@@ -45,42 +45,52 @@ describe('TableComponent', () => {
            return Observable.of({
               "records": [
               {
-                asn: "AS13238",
-                first_seen: "2018-01-01T02:14:27.962Z",
-                ip: "66.249.65.146", 
-                last_updated: "2018-01-01T02:14:27.962Z",
-                org: "YANDEX LLC",
-                rdns: "5-255-250-2.spider.yandex.com",
-                rdns_parent: "yandex.com"
+                "asn": "AS13238", 
+                "category": "search_engine", 
+                "confidence": "high", 
+                "datacenter": "Test", 
+                "first_seen": "2017-09-27", 
+                "intention": "benign", 
+                "ip": "5.255.250.2", 
+                "last_updated": "2017-09-28", 
+                "name": "YANDEX_SEARCH_ENGINE", 
+                "org": "YANDEX LLC", 
+                "os": "Windows XP", 
+                "rdns": "5-255-250-2.spider.yandex.com"
               },
               {
-                asn: "AS13238",
-                first_seen: "2017-01-01T02:14:27.962Z", 
-                ip: "66.249.65.145", 
-                last_updated: "2017-01-01T02:14:27.962Z",
-                org: "YANDEX LLC",
-                rdns: "5-255-250-2.spider.yandex.com",
-                rdns_parent: "yandex.com"
+                "asn": "AS13238", 
+                "category": "search_engine", 
+                "confidence": "high", 
+                "datacenter": "Test", 
+                "first_seen": "2017-09-27", 
+                "intention": "benign", 
+                "ip": "5.255.250.2", 
+                "last_updated": "2017-09-28", 
+                "name": "YANDEX_SEARCH_ENGINE", 
+                "org": "YANDEX LLC", 
+                "os": "Windows XP", 
+                "rdns": "5-255-250-2.spider.yandex.com"
               }]
             });
           },
           getIpData(ip: string) {
            return Observable.of({
-              "record": [
+              "records": [
                 {
                   "category": "activity", 
                   "confidence": "low", 
-                  "first_seen": "2017-09-27T02:27:26.431Z", 
+                  "first_seen": "2017-09-27", 
                   "intention": "Null", 
-                  "last_updated": "2017-09-27T18:36:14.127Z", 
+                  "last_updated": "2017-09-27", 
                   "name": "ELASTICSEARCH_SCANNER"
                 }, 
                 {
                   "category": "actor", 
                   "confidence": "high", 
-                  "first_seen": "2017-09-27T02:26:31.957Z", 
+                  "first_seen": "2017-09-27", 
                   "intention": "benign", 
-                  "last_updated": "2017-10-19T01:35:34.114Z", 
+                  "last_updated": "2017-10-19", 
                   "name": "SHODAN"
                 }]
             });
