@@ -1,14 +1,15 @@
 import { AppPage } from './app.po';
 
-describe('threatintel App', () => {
+describe('GreyNoise App', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getHeaderText()).toEqual('GreyNoise Visualizer');
   });
+
 });

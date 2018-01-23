@@ -74,7 +74,6 @@ export class MapComponent implements OnInit {
 			}
 
 			this.markerClusterData = this.markerList;
-
 			//add layers to cluster group
 			this.markerClusterGroup.addLayers(this.markerClusterData);
 			this.loadingMap = false;

@@ -254,6 +254,9 @@ def getTagIpGeo(tag):
         newTagData = {}
         newTagData['ip'] = section['ip']
         response = reader.city(section['ip'])
+        #if lat or long is null, skip it 
+        if(not response.location.longitude or not response.location.longitude):
+            continue;
         newTagData['long'] = response.location.longitude
         newTagData['lat'] = response.location.latitude
         finalTagData.append(newTagData)
