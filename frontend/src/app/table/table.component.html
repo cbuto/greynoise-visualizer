@@ -102,7 +102,7 @@
 </p-blockUI>
 
 <p-dialog header="Other Associated Tags" [(visible)]="display" [modal]="true" [dismissableMask]="true" [draggable] = "true" >
-    <p-table [value]="ipEventData" [rows]="20" [paginator]="true" autoLayout="true" #ipTable>
+    <p-table id="dialogTable" [value]="ipEventData" [rows]="20" [paginator]="true" autoLayout="true" #ipTable>
         <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name">

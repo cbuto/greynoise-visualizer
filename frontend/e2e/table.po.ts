@@ -5,13 +5,9 @@ export class TablePage {
     return browser.get('/table');
   }
 
-  getBlockUIElement() {
-    return element(by.tagName('p-blockUI'));
-  }
   getTableElements() {
     let EC = protractor.ExpectedConditions;
-    browser.wait(EC.not(EC.visibilityOf(element(by.css('.ui-blockui .ui-widget-overlay .ui-blockui-document')))));
-    browser.sleep(30000);
+    browser.wait(EC.visibilityOf(element(by.css('#mainTable tbody tr td a'))));
     return element.all(by.css('#mainTable tbody tr'));
   }
 
@@ -28,6 +24,6 @@ export class TablePage {
   }
 
   getOpenDialogElement() {
-    return element(by.tagName('p-dialog'));
+    return element(by.css('#dialogTable'));
   }
 };
