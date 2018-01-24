@@ -10,9 +10,7 @@ RUN npm install
 
 COPY ./frontend /app/
 
-ARG env=prod
-
-RUN npm run build -- --prod --environment $env
+RUN npm run build --prod
 
 # Stage 1 - Serve compiled code with NGINX
 

@@ -1,11 +1,16 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class TablePage {
   navigateTo() {
     return browser.get('/table');
   }
 
+  getBlockUIElement() {
+    return element(by.tagName('p-blockUI'));
+  }
   getTableElements() {
+    let EC = protractor.ExpectedConditions;
+    browser.wait(EC.not(EC.visibilityOf(element(by.css('.ui-blockui .ui-widget-overlay .ui-blockui-document')))));
     return element.all(by.css('#mainTable tbody tr'));
   }
 
