@@ -6,7 +6,9 @@ import 'rxjs/add/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ApiService} from '../api.service';
-import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule, DialogModule } from 'primeng/primeng';
+import {TableModule} from 'primeng/table';
+import {DataTable} from 'primeng/components/datatable/datatable'; 
+import {SharedModule, DropdownModule, SelectItem, BlockUIModule, DialogModule } from 'primeng/primeng';
 
 import { TableComponent } from './table.component';
 
@@ -19,7 +21,7 @@ describe('TableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TableComponent ],
       imports: [
-        DataTableModule,
+        TableModule,
         SharedModule,
         DropdownModule, 
         BlockUIModule,
@@ -116,7 +118,7 @@ describe('TableComponent', () => {
 
   it('should display data in main table', async(() => {
     fixture.detectChanges();
-    const cells = debugElement.queryAll(By.css('#mainTable tr.ui-widget-content'));
+    const cells = debugElement.queryAll(By.css('#mainTable tbody tr'));
 
     expect(cells.length).toBe(1);
    }));
@@ -125,7 +127,7 @@ describe('TableComponent', () => {
     const spy = spyOn(component, 'loadTagInstances');
     fixture.detectChanges();
 
-    const cell = debugElement.queryAll(By.css('#mainTable .ui-datatable-even .ui-cell-data'))[0];
+    const cell = debugElement.queryAll(By.css('#mainTable tbody tr td a'))[0];
     spy.and.callThrough();
     cell.nativeElement.click();
     fixture.detectChanges();
@@ -143,13 +145,13 @@ describe('TableComponent', () => {
     const spyTagInstances = spyOn(component, 'loadTagInstances');
     fixture.detectChanges();
 
-    const cell = debugElement.queryAll(By.css('#mainTable .ui-datatable-even .ui-cell-data'))[0];
+    const cell = debugElement.queryAll(By.css('#mainTable tbody tr td a'))[0];
     spyTagInstances.and.callThrough();
     cell.nativeElement.click();
     fixture.detectChanges();
     
 
-    const row = debugElement.queryAll(By.css('#secondaryTable .ui-datatable-even .ui-cell-data'))[0];
+    const row = debugElement.queryAll(By.css('#secondaryTable tbody tr td'))[0];
     row.nativeElement.click();
     fixture.detectChanges();    
 

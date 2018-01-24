@@ -3,8 +3,9 @@ import {ApiService} from '../api.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
-import {DataTableModule, SharedModule, DropdownModule, SelectItem, BlockUIModule, ButtonModule, InputTextModule, DialogModule} from 'primeng/primeng';
+import {TableModule} from 'primeng/table';
+import {DataTable} from 'primeng/components/datatable/datatable'; 
+import {SharedModule, DropdownModule, SelectItem, BlockUIModule, ButtonModule, InputTextModule, DialogModule} from 'primeng/primeng';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -124,7 +125,8 @@ export class TableComponent implements OnInit {
 			});
 	}
 
-	showDialog(event){
+	showDialog(event, dt: DataTable){
+		dt.reset();
 		this.getIpData(event.data['ip']).subscribe(_ => {;
 			this.loadingIP = false;
     		this.ipEventData = this.ipData.records 

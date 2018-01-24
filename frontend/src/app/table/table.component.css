@@ -18,3 +18,14 @@
 .search-input:focus{
 	border-color: grey;
 }
+
+.filterHeaders{
+	width: 100%;
+}
+a:visited, a:active{
+	color: inherit;
+	background: inherit;
+}
+tr td a{
+	color: white;
+}

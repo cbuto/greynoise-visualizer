@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DataTableModule,SharedModule, DropdownModule, ChartModule, TabMenuModule, MenuItem, BlockUIModule, PanelModule, DialogModule} from 'primeng/primeng';
+import {SharedModule, DropdownModule, ChartModule, TabMenuModule, MenuItem, BlockUIModule, PanelModule, DialogModule} from 'primeng/primeng';
+import {TableModule} from 'primeng/table';
+import {DataTable} from 'primeng/components/datatable/datatable'; 
 import { RouteRoutingModule } from './route/route-routing.module';
 import { FormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
@@ -36,7 +38,7 @@ describe('AppComponent', () => {
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        DataTableModule,
+        TableModule,
         SharedModule,
         DropdownModule, 
         RouteRoutingModule,
