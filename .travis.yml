@@ -30,3 +30,4 @@ script:
 - docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://localhost
 - docker-compose exec flask_api nose2 -v
 - cd frontend && ng test --watch false --browsers ChromeHeadless
+- ng e2e --environment=e2e

@@ -206,8 +206,9 @@ export class StatsComponent implements OnInit {
 	}
 	//when a tag is selected, change time series chart
 	tagChange(value){
-
+		
 		this.timeSeriesChosen = value;
+
 		this.getTimeSeries(this.timeSeriesChosen).subscribe(_ => {;
     		this.loadingChart = false;
 			//get timestamps 
