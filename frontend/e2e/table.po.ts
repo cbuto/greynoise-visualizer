@@ -11,6 +11,7 @@ export class TablePage {
   getTableElements() {
     let EC = protractor.ExpectedConditions;
     browser.wait(EC.not(EC.visibilityOf(element(by.css('.ui-blockui .ui-widget-overlay .ui-blockui-document')))));
+    browser.sleep(30000);
     return element.all(by.css('#mainTable tbody tr'));
   }
 
