@@ -25,7 +25,7 @@
 		<div class="ui-g-12" style="text-align: center;">
 		    <p-dropdown id="time-series-drop" [options]="timeSeriesDropdown" placeholder="Select a tag" [filter]="true" (onChange)=tagChange($event.value)></p-dropdown>
 		</div>
-	    <div class="ui-g-12 ui-md-12 ui-lg-10 line-chart" >
+	    <div class="ui-g-12 ui-md-12 ui-lg-10 line-chart" *ngIf="timeSeriesChosen!==undefined">
 	    	<p-chart type="line" [data]="timeSeriesChart" [options]="timeSeriesOptions"></p-chart>
 	    </div>
 	</div>

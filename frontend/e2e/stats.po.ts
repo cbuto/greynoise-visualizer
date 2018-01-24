@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
 export class StatsPage {
   navigateTo() {
@@ -14,6 +14,8 @@ export class StatsPage {
   }
 
   getLineChart(){
+    let EC = ExpectedConditions;
+    browser.wait(EC.visibilityOf(element(by.tagName('p-chart'))));
     return element(by.tagName('p-chart'));
   }
 };

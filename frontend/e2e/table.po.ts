@@ -1,4 +1,4 @@
-import { browser, by, element, protractor } from 'protractor';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
 export class TablePage {
   navigateTo() {
@@ -6,7 +6,7 @@ export class TablePage {
   }
 
   getTableElements() {
-    let EC = protractor.ExpectedConditions;
+    let EC = ExpectedConditions;
     browser.wait(EC.visibilityOf(element(by.css('#mainTable tbody tr td a'))));
     return element.all(by.css('#mainTable tbody tr'));
   }
