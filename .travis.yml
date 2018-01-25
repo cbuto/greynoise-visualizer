@@ -29,6 +29,6 @@ script:
 - docker-compose up -d
 - docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://localhost
 - docker-compose exec flask_api nose2 -v
-- curl -s http://localhost/api/tags > /dev/null
+- curl http://localhost/api/tags
 - cd frontend && ng test --watch false --browsers ChromeHeadless
 - ng e2e --environment=e2e
