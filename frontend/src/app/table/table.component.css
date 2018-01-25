@@ -29,3 +29,11 @@ a:visited, a:active{
 tr td a{
 	color: white;
 }
+
+#mainTable{
+	display: block;
+	overflow-x: auto;
+}
+#secondaryTable table thead tr th p-sorticon span {
+	display: block !important;
+}

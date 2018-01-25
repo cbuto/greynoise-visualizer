@@ -19,17 +19,24 @@ services:
 
  # ============================================================================
   # NGINX SERVER CONTAINER
+  # - change the SSL volume mounts for the host machine as needed
   # ============================================================================
   nginx_angular:
     container_name: greynoise-angular
     restart: always
     build:
       context: .
+      args:
+        - NGINX_SSL=${GREYNOISE_NGINX_SSL}
+        - SERVER_NAME=${GREYNOISE_SERVER_NAME}
+        - CERT_NAME=${GREYNOISE_CERT_NAME}
       dockerfile: ./nginx/Dockerfile
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/ssl/certs/greynoise/:/etc/ssl/certs/
+      - /etc/ssl/private/greynoise/:/etc/ssl/private/
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - flask_api
     links:

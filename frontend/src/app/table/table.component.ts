@@ -25,6 +25,7 @@ export class TableComponent implements OnInit {
 	//used to load ip event data
 	ipEventData: any[];
 	display: any;
+
 	//filter options
 	selectCategory: SelectItem[];
 	categoryTemp: string[];
