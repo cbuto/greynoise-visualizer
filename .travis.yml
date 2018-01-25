@@ -31,4 +31,5 @@ script:
 - curl -s http://localhost/api/tags > /dev/null
 - cd frontend && ng test --watch false --browsers ChromeHeadless
 - ng e2e --environment=e2e
+- docker-compose exec greynoise-redis redis-cli flushall
 - docker-compose exec flask_api nose2 -v

@@ -36,3 +36,4 @@ services:
       - flask_api
   redis:
     image: redis:alpine
+    container_name: greynoise-redis
