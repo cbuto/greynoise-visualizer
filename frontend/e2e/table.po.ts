@@ -8,7 +8,6 @@ export class TablePage {
   getTableElements() {
     let EC = ExpectedConditions;
     browser.wait(EC.visibilityOf(element(by.css('#mainTable tbody tr td a'))));
-    browser.sleep(60000)
     return element.all(by.css('#mainTable tbody tr'));
   }
 
