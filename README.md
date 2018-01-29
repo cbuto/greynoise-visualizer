@@ -20,28 +20,25 @@ The quickest way [deploy](#deployment) this project is by using docker-compose; 
 
 ### Prerequisites
 
-##### For development:
+#### For development:
 
 * Python 3.6 
 * [GeoLite2 City database](http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz)
 * [Node.js](https://nodejs.org/en/download/package-manager/)
 * Angular CLI - ```npm install -g @angular/cli```
 
-##### For deployment:
+#### For deployment:
 
 Install Docker and Docker Compose:
 
 * Docker installation instructions: https://docs.docker.com/engine/installation/ 
-* Docker Compose installation instructions: https://docs.docker.com/compose/install/
-
-Docker for most Linux distributions:
 
 ```bash
 curl -fsSL get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
 
-Docker Compose for most Linux distributions:
+* Docker Compose installation instructions: https://docs.docker.com/compose/install/
 
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
@@ -72,14 +69,14 @@ ng serve
 
 ### Angular:
 
-##### Unit testing:
+#### Unit testing:
 
 ```
 cd frontend
 ng test 
 ```
 
-##### e2e testing:
+#### e2e testing:
 
 Either requires the Flask backend to be running locally as shown in the development section or the environment flag can be passed with the "e2e" option to use the containerized Flask backend (docker-compose).
 
@@ -112,7 +109,7 @@ docker-compose build
 docker-compose up -d
 ```
 
-##### In order to set up NGINX to use SSL:
+#### In order to set up NGINX to use SSL:
 
 The SSL cert and key are set to be in /etc/ssl/certs/greynoise/greynoise.crt and /etc/ssl/certs/greynoise/greynoise.key on the host machine running the containers. See [optional SSL configuration](#optional-ssl-configuration) below to configure cert names/paths.
 
@@ -123,11 +120,11 @@ docker-compose build
 docker-compose up -d
 ```
 
-##### Optional SSL configuration:
+#### Optional SSL configuration:
 
 The cert/key paths can be changed in the docker-compose.yml file on line 33 and the cert/key names can be changed by setting the GREYNOISE_CERT_NAME environment variable.
 
-```
+```bash
 #sets NGINX to look for /etc/ssl/certs/greynoise/test.crt and /etc/ssl/certs/greynoise/test.key
 #unless the paths were changed in the docker-compose file
 export GREYNOISE_CERT_NAME=test
