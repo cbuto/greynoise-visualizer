@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {SharedModule, DropdownModule, ChartModule, TabMenuModule, MenuItem, BlockUIModule, PanelModule, DialogModule} from 'primeng/primeng';
+import {SharedModule, DropdownModule, ChartModule, TabMenuModule, MenuItem, BlockUIModule, PanelModule, DialogModule,
+MessagesModule, MessageModule } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {DataTable} from 'primeng/components/datatable/datatable'; 
 import { RouteRoutingModule } from './route/route-routing.module';
@@ -13,12 +14,14 @@ import { By } from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-
+import { ReactiveFormsModule, Validators, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { TableComponent } from './table/table.component';
 import { StatsComponent } from './stats/stats.component';
 import { MapComponent } from './map/map.component';
+import { IpSearchComponent } from './ip-search/ip-search.component';
 
 describe('AppComponent', () => {
 
@@ -32,7 +35,8 @@ describe('AppComponent', () => {
         AppComponent,
         TableComponent,
         StatsComponent,
-        MapComponent
+        MapComponent,
+        IpSearchComponent
       ],
       imports: [
         BrowserModule,
@@ -49,7 +53,10 @@ describe('AppComponent', () => {
         PanelModule,
         LeafletModule,
         LeafletMarkerClusterModule, 
-        DialogModule
+        DialogModule,
+        MessagesModule, 
+        MessageModule,
+        ReactiveFormsModule
       ],
       providers: [ApiService,
       {provide: APP_BASE_HREF, useValue: '/'}],
@@ -76,7 +83,7 @@ describe('AppComponent', () => {
         {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
       ];
       const menu = debugElement.queryAll(By.css('.ui-tabmenu-nav li'));
-      expect(menu.length).toBe(3);
+      expect(menu.length).toBe(4);
   }));
   
 });

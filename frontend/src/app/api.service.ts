@@ -49,5 +49,9 @@ export class ApiService {
 	getIpData(ip: string){
   		return this.http.get(environment.apiUrl + '/api/ip/' + ip)
 	}
+
+	getGeoDataSingleIP(ip: string){
+		return this.http.get(environment.apiUrl + '/api/geoip/' + ip)
+	}
 }
 

@@ -464,5 +464,43 @@ class TestApi(unittest.TestCase):
         self.assertEqual(tagDataResponse.status_code, 200)
         self.assertEqual(json.loads(tagDataResponse.data), finalTagData)
 
+    def test_getSingleIpGeo(self):
+        """test getSingleIpGeo function"""
+
+        ip = "66.111.57.56"
+
+        geoData = app.getSingleIpGeo(ip)
+
+        assert 'ip' in geoData.keys()
+        assert 'long' in geoData.keys() 
+        assert 'lat' in geoData.keys()
+        
+    @patch('app.getSingleIpGeo')
+    def test_api_get_single_ip_geo(self, mock_get):
+        """test api call to get IP locations"""
+        geoData = [
+                {
+                  "ip": "66.111.57.56", 
+                  "lat": 33.9058, 
+                  "long": -84.1803
+                }
+              ]
+        finalTagData = {
+                    "record": [
+                        {
+                        "ip": "66.111.57.56", 
+                        "lat": 33.9058, 
+                        "long": -84.1803
+                        }
+                      ]
+                    }
+
+        mock_get.return_value = Mock()
+        mock_get.return_value = geoData
+
+        ipGeoResponse = self.app.get("/api/geoip/66.111.57.56")
+        self.assertEqual(ipGeoResponse.status_code, 200)
+        self.assertEqual(json.loads(ipGeoResponse.data), finalTagData)
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,61 @@
+<p-messages [(value)]="msgs"></p-messages>
+
+<form name="searchForm" [formGroup]="searchForm" (ngSubmit)="loadIPDataOnSearch()" class="searchform" >
+	<input #ipinput id="ipsearchbox" type="text" class="form-control input-lg" placeholder="Enter an IPv4 Address" formControlName="search" />
+	
+    <button id="submitButton" pButton type="submit" label = "Search" [disabled] = "!searchForm.valid"></button>
+</form>
+
+<h1 *ngIf="ipSearchedFor != undefined">Results for: {{ipSearchedFor}}</h1>
+<div class = "ui-g-12 singleIpMap" leaflet style="height: 400px;"
+	 [leafletOptions]="options"
+	 [leafletLayers]="layers">
+</div>
+
+<p-table id="ipTable" [value]="ipRows" [rows]="20" [paginator]="true" autoLayout="true" [responsive] = "true" #ipTable>
+    <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">
+                    Name
+                    <p-sortIcon [field]="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="category">
+                    Category
+                    <p-sortIcon [field]="category"></p-sortIcon>
+                </th>
+                <th pSortableColumn="intention">
+                    Intention
+                    <p-sortIcon [field]="intention"></p-sortIcon>
+                </th>
+                <th pSortableColumn="confidence">
+                    Confidence
+                    <p-sortIcon [field]="confidence"></p-sortIcon>
+                </th>
+                 <th pSortableColumn="first_seen">
+                    First Seen
+                    <p-sortIcon [field]="first_seen"></p-sortIcon>
+                </th>
+                <th pSortableColumn="last_updated">
+                    Last Updated
+                    <p-sortIcon [field]="first_seen"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>{{row.name}}</td>
+                <td>{{row.category}}</td>
+                <td>{{row.intention}}</td>
+                <td>{{row.confidence}}</td>
+                <td>{{row.first_seen}}</td>
+                <td>{{row.last_updated}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="6">
+                No records found
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

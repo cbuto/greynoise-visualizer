@@ -6,6 +6,7 @@ from collections import Counter
 from datetime import datetime
 import pandas as pd
 from pandas.io.json import json_normalize
+import ipaddress
 
 app = Flask(__name__)
 CORS(app)
@@ -55,28 +56,24 @@ def api_get_tags():
 @cache.cached(timeout=86400, key_prefix='tagsName_key')
 def api_get_only_tag_names():
     ''' Get all tags from grey noise'''
-    try:
         #request api for tag names
-        req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
-        if req.status_code == 200:
-            #get json
-            onlyTagNames = req.json()
+    req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
+    if req.status_code == 200:
+        #get json
+        onlyTagNames = req.json()
 
-            finalData = []
-            #for all tag names, rearrange for easier consumptions
-            for tag in onlyTagNames['tags']:
-                temp = {}
-                temp['name'] = tag
-                finalData.append(temp)
-            #return tag names
-            return jsonify({
-                'tags' :  finalData
-            }) 
-        else:
-            return {}
-    # fix this
-    except Exception as e:
-        return e
+        finalData = []
+        #for all tag names, rearrange for easier consumptions
+        for tag in onlyTagNames['tags']:
+            temp = {}
+            temp['name'] = tag
+            finalData.append(temp)
+        #return tag names
+        return jsonify({
+            'tags' :  finalData
+        }) 
+    else:
+        return {}
 
 #returns tag instances for a specified tag
 #calls getTagData to get data
@@ -132,6 +129,20 @@ def api_get_IpData(ip):
     return jsonify({
               'records' :  ipData
             }) 
+
+#returns location for a specific IP
+#calls getTagIpGeo to get data
+@app.route('/api/geoip/<ip>', methods = ['GET'])
+@cache.cached(timeout=86400, key_prefix=make_cache_key)
+def api_get_ip_geo(ip):
+    ''' Get tag IPs from greynoise and use geoip2 to get lat/long of IP'''
+
+    geoData = getSingleIpGeo(ip)
+
+    return jsonify({
+              'record' :  geoData
+            })
+
 #counts occurrences for intentions and categories
 def counter_of_things(items):
     #count items
@@ -174,73 +185,66 @@ def counter_of_things(items):
 #
 @cache.memoize(timeout=86400)
 def getTagData(tag):
-    try:
-        #request tag instances from greynoise
-        req = requests.post('http://api.greynoise.io:8888/v1/query/tag', ({'tag': tag.upper()}), headers=headers)
-        if req.status_code == 200:
-            allTagData = req.json()
-            finalTagData = []
-
-            #for each tag instances
-            #rearrange data
-            for section in allTagData['records']:
-                newTagData = {}
-                newTagData['name'] = section['name']
-                newTagData['category'] = section['category']
-                newTagData['confidence'] = section['confidence']
-                # set intention to 'Null' if empty
-                if(not section['intention']):
-                    newTagData['intention'] = 'Null'
-                else:
-                    newTagData['intention'] = section['intention']
-                    
-                newTagData['ip'] = section['ip']
-                newTagData['first_seen'] = section['first_seen'].split('T')[0]
-                newTagData['last_updated'] = section['last_updated'].split('T')[0]
-                newTagData['org'] = section['metadata']['org']
-                newTagData['rdns'] = section['metadata']['rdns']
-                newTagData['asn'] = section['metadata']['asn']
-                newTagData['os'] = section['metadata']['os']
-                newTagData['datacenter'] = section['metadata']['datacenter']
-
-                finalTagData.append(newTagData)
-
-            return finalTagData
-        else:
-
+    #request tag instances from greynoise
+    req = requests.post('http://api.greynoise.io:8888/v1/query/tag', ({'tag': tag.upper()}), headers=headers)
+    if req.status_code == 200:
+        allTagData = req.json()
+        if allTagData['status'] == "unknown":
             return {}
-            
-    except Exception as e:
-        return e 
+        finalTagData = []
+
+        #for each tag instances
+        #rearrange data
+        for section in allTagData['records']:
+            newTagData = {}
+            newTagData['name'] = section['name']
+            newTagData['category'] = section['category']
+            newTagData['confidence'] = section['confidence']
+            # set intention to 'Null' if empty
+            if(not section['intention']):
+                newTagData['intention'] = 'Null'
+            else:
+                newTagData['intention'] = section['intention']
+                
+            newTagData['ip'] = section['ip']
+            newTagData['first_seen'] = section['first_seen'].split('T')[0]
+            newTagData['last_updated'] = section['last_updated'].split('T')[0]
+            newTagData['org'] = section['metadata']['org']
+            newTagData['rdns'] = section['metadata']['rdns']
+            newTagData['asn'] = section['metadata']['asn']
+            newTagData['os'] = section['metadata']['os']
+            newTagData['datacenter'] = section['metadata']['datacenter']
+
+            finalTagData.append(newTagData)
+
+        return finalTagData
+    else:
+        return {}
 
 #
 @cache.memoize(timeout=86400)
 def getTags():
-    try:
-        #request tag names from greynoise
-        req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
-        if req.status_code == 200:
-            allTagNames = req.json()
-            finalTagData = []
+    #request tag names from greynoise
+    req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
+    if req.status_code == 200:
+        allTagNames = req.json()
+        finalTagData = []
+        
+        #for each tag, call getTagData to retrieve intent, category, and confidence
+        for tag in allTagNames['tags']:
+            resp = getTagData(tag)
+            newTagData = {}
+            #only need to get first instance because
+            #all instances have same data
+            newTagData['category'] = resp[0]['category']
+            newTagData['name'] = resp[0]['name']
+            newTagData['intention'] = resp[0]['intention']
+            newTagData['confidence'] = resp[0]['confidence']
+            finalTagData.append(newTagData)
+        return finalTagData
+    else:
+        return {}
             
-            #for each tag, call getTagData to retrieve intent, category, and confidence
-            for tag in allTagNames['tags']:
-                resp = getTagData(tag)
-                newTagData = {}
-                #only need to get first instance because
-                #all instances have same data
-                newTagData['category'] = resp[0]['category']
-                newTagData['name'] = resp[0]['name']
-                newTagData['intention'] = resp[0]['intention']
-                newTagData['confidence'] = resp[0]['confidence']
-                finalTagData.append(newTagData)
-            return finalTagData
-        else:
-            return {}
-            
-    except Exception as e:
-        return e 
-
 #get the long, lat for each IP for a specific tag
 @cache.memoize(timeout=86400)
 def getTagIpGeo(tag):
@@ -263,40 +267,61 @@ def getTagIpGeo(tag):
 
     return finalTagData
 
+#get the long, lat for each IP for a specific IP
+@cache.memoize(timeout=86400)
+def getSingleIpGeo(ip):
+    finalGeoData = {}
+    finalGeoData['ip'] = ip
+    try:
+        response = reader.city(ip)
+        #if lat or long is null, skip it 
+        if(not response.location.longitude or not response.location.longitude):
+            return 
+        finalGeoData['long'] = response.location.longitude
+        finalGeoData['lat'] = response.location.latitude
+    except Exception as e:
+        return "Not Found"
+        
+    return finalGeoData
 #
 @cache.memoize(timeout=86400)
 def getIpData(ip):
+    #request tag instances from greynoise
+    #first test if input is IP address
     try:
-        #request tag instances from greynoise
+        ipaddress.ip_address(ip)
         req = requests.post('http://api.greynoise.io:8888/v1/query/ip', ({'ip': ip}), headers=headers)
-        if req.status_code == 200:
-            allIpData = req.json()
-            finalIpData = []
+    except ValueError:
+        return "unknown"
 
-            #for each tag associated with an IP
-            #rearrange data
-            for section in allIpData['records']:
-                newTagData = {}
-                newTagData['name'] = section['name']
-                newTagData['category'] = section['category']
-                newTagData['confidence'] = section['confidence']
-                # set intention to 'Null' if empty
-                if(not section['intention']):
-                    newTagData['intention'] = 'Null'
-                else:
-                    newTagData['intention'] = section['intention']
-                newTagData['first_seen'] = section['first_seen'].split('T')[0]
-                newTagData['last_updated'] = section['last_updated'].split('T')[0]
+    if req.status_code == 200:
+        allIpData = req.json()
+        print(allIpData['status'])
+        if allIpData['status'] == "unknown":
+            return "unknown"
 
-                finalIpData.append(newTagData)
+        finalIpData = []
 
-            return finalIpData
-        else:
+        #for each tag associated with an IP
+        #rearrange data
+        for section in allIpData['records']:
+            newTagData = {}
+            newTagData['name'] = section['name']
+            newTagData['category'] = section['category']
+            newTagData['confidence'] = section['confidence']
+            # set intention to 'Null' if empty
+            if(not section['intention']):
+                newTagData['intention'] = 'Null'
+            else:
+                newTagData['intention'] = section['intention']
+            newTagData['first_seen'] = section['first_seen'].split('T')[0]
+            newTagData['last_updated'] = section['last_updated'].split('T')[0]
 
-            return {}
-            
-    except Exception as e:
-        return e 
+            finalIpData.append(newTagData)
+
+        return finalIpData
+    else:
+        return {}
 
 
 #source: https://github.com/phyler/greynoise

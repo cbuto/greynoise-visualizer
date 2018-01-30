@@ -13,6 +13,7 @@ export class AppComponent {
       //tab menu items
         this.items = [
         	{label: 'Table', icon: 'fa-database', routerLink: ['table']},
+          {label: 'IP Search', icon: 'fa-search', routerLink: ['ip']},
           {label: 'Map', icon: 'fa-map', routerLink: ['map']},
           {label: 'Stats', icon: 'fa-bar-chart', routerLink: ['stats']}
         ];

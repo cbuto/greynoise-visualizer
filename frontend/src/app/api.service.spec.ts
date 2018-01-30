@@ -189,6 +189,27 @@ describe('ApiService', () => {
     httpMock.verify();
   }));
 
+  it('should successfully get geo data for single IP', inject([
+      HttpTestingController, ApiService
+    ], (httpMock, apiService) => {
+    let response = {
+              "record": [
+                        {
+                          "ip": "66.249.80.1",
+                          "lat": 32.7787,
+                          "long": -96.8217
+                        }
+                      ]
+              };
+    apiService.getGeoDataSingleIP("66.249.80.1")
+                 .subscribe(data => {
+                   expect(data).toEqual(response);
+                 });
+    const ipGeoRequest = httpMock.expectOne(environment.apiUrl + '/api/geoip/66.249.80.1'); 
+    ipGeoRequest.flush(response);
+    httpMock.verify();
+  }));
+
 });
 
 

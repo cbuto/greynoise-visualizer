@@ -1,0 +1,11 @@
+.searchform{
+	text-align: center;
+	padding: 10px;
+}
+#ipTable{
+	padding: 10px;
+}
+.SearchBox{
+	width: 40% !important;
+	margin: auto !important;
+}
