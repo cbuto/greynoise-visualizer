@@ -65,6 +65,8 @@ npm install
 ng serve
 ```
 
+Browse to http://localhost:4200 to view the application
+
 ## Testing
 
 ### Angular:
@@ -102,7 +104,9 @@ nose2
 
 A simple deployment using docker-compose:
 
-There will be some warnings about unset variables; however, they will not cause any issues if SSL is not being used. You can simply ignore these warnings, or set the variables to blank strings 
+There will be some warnings about unset variables; however, they will not cause any issues if SSL is not being used. You can simply ignore these warnings, or set the variables to blank strings. 
+
+The application will be accessible at http://localhost.
 
 ```bash
 docker-compose build

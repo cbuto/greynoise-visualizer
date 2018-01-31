@@ -9,6 +9,7 @@ from pandas.io.json import json_normalize
 import ipaddress
 
 app = Flask(__name__)
+
 CORS(app)
 #geoip database reader
 reader = geoip2.database.Reader('./GeoLite2-City.mmdb')

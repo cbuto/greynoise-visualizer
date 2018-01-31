@@ -78,7 +78,22 @@ export class IpSearchComponent implements OnInit {
   //used for linking to IP searches
   loadIPDataLink(ip){
   	//get ip data for param in url
-	this.getIpData(ip).subscribe(_ => {;
+	this.loadIPData(ip);
+
+  }
+
+  //load data on search 
+  loadIPDataOnSearch(){
+	  	if(this.searchForm.value.search != ""){
+	  		//call function to load data based on search item
+			this.loadIPData(this.searchForm.value.search);
+			//change url for easy linking to results
+		    this.location.replaceState("/ip/" + this.searchForm.value.search);
+		}
+  }
+
+  loadIPData(ip){
+  	this.getIpData(ip).subscribe(_ => {;
 			//if the ip is not found, display error msg
 			//reset rows and map
 			if(this.ipData.records === "unknown") {
@@ -97,36 +112,7 @@ export class IpSearchComponent implements OnInit {
 				this.ipSearchedFor = ip;
 			}
     });
-
   }
-
-  //load data on search 
-  loadIPDataOnSearch(){
-  	if(this.searchForm.value.search != ""){
-		this.getIpData(this.searchForm.value.search).subscribe(_ => {;
-				//if the ip is not found, display error msg
-				//reset rows and map
-				if(this.ipData.records === "unknown") {
-					this.msgs = [];
-					this.msgs.push({severity:'error', summary:'Error', detail:'IP Not Found'});
-					this.ipRows = [];
-					this.layers = [];
-					this.ipSearchedFor = this.searchForm.value.search;
-				}
-				//else the ip is found
-				//set table rows and load map
-				else{
-					this.msgs = [];
-					this.ipRows = this.ipData.records;
-					this.loadMapMarker(this.searchForm.value.search);
-					this.ipSearchedFor = this.searchForm.value.search;
-				}
-	    });
-		//change url for easy linking to results
-	    this.location.replaceState("/ip/" + this.searchForm.value.search);
-	}
-  }
-
     //load data into map
 	loadMapMarker(ip){
 
@@ -147,7 +133,7 @@ export class IpSearchComponent implements OnInit {
 			//add marker to layer
 			this.layers.push(this.markerIP);
 	});	
-}
+	}
 
 //gets all associated tags for an IP
   getIpData(ip: string){
