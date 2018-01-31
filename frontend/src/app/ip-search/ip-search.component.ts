@@ -50,7 +50,7 @@ export class IpSearchComponent implements OnInit {
   options = {
     layers: [ this.LAYER_OSM ],
 	zoom: 2,
-	center: L.latLng(40.473698, -9.492188)
+	center: L.latLng(25.6, -8.6)
   };
 
   ngOnInit() {
@@ -82,6 +82,7 @@ export class IpSearchComponent implements OnInit {
 			//if the ip is not found, display error msg
 			//reset rows and map
 			if(this.ipData.records === "unknown") {
+				this.msgs = [];
 				this.msgs.push({severity:'error', summary:'Error', detail:'IP Not Found'});
 				this.ipRows = [];
 				this.layers = [];
@@ -106,6 +107,7 @@ export class IpSearchComponent implements OnInit {
 				//if the ip is not found, display error msg
 				//reset rows and map
 				if(this.ipData.records === "unknown") {
+					this.msgs = [];
 					this.msgs.push({severity:'error', summary:'Error', detail:'IP Not Found'});
 					this.ipRows = [];
 					this.layers = [];
