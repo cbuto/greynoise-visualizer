@@ -5,8 +5,20 @@
 #ipTable{
 	padding: 10px;
 }
-.SearchBox{
-	width: 40% !important;
-	margin: auto !important;
-	padding: 5px;
+
+#ipsearchbox{
+	padding: 6px 15px 6px 1px;
+	margin: 3px; 
+	border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border: .1px solid lightgrey;
+	width: 30%;
+	font-size: 13px;
+}
+#ipsearchbox:hover{
+	border-color: grey;
+}
+#ipsearchbox:focus{
+	border-color: grey;
 }
