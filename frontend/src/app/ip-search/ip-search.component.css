@@ -2,10 +2,15 @@
 	text-align: center;
 	padding: 10px;
 }
-#ipTable{
-	padding: 10px;
-}
 
+h2{
+	margin-left: 2%;
+}
+:host /deep/ .ip-table{
+	width: 96% !important;
+	margin: auto !important;
+	padding-top: 10px !important;
+}
 #ipsearchbox{
 	padding: 6px 15px 6px 1px;
 	margin: 3px; 
@@ -21,4 +26,9 @@
 }
 #ipsearchbox:focus{
 	border-color: grey;
+}
+.singleIpMap{
+	height: 400px;
+	width: 96%;
+	margin: auto;
 }

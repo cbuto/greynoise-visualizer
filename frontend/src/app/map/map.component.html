@@ -6,7 +6,7 @@
 	<div class="ui-g-12" style="text-align: center;">
 	    <p-dropdown id="map-drop" [options]="mapDropdownOptions" placeholder="Select a tag" [filter]="true" (onChange)=tagChangeMap($event.value)></p-dropdown>
 	</div>
-    <div class = "ui-g-12" leaflet style="height: 600px;"
+    <div class = "ui-g-12 map" leaflet
 	 [leafletOptions]="options"
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"

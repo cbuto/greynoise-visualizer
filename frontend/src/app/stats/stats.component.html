@@ -8,29 +8,30 @@
 </p-blockUI>
 
 <!--General stats-->
-<p-panel header="General" [toggleable]="true">
-	<div class="ui-g">
-	    <div class="ui-g-12 ui-md-12 ui-lg-6">
-	    	<p-chart type="doughnut" [data]="countDataIntentChart" [options]="intentOptions" ></p-chart>
-	    </div>
-	    <div class="ui-g-12 ui-md-12 ui-lg-6">
-	    	<p-chart type="doughnut" [data]="countDataCategoryChart" [options]="categoryOptions"></p-chart>
-	    </div>
-	</div>
-</p-panel>
-
-<!--Time series-->
-<p-panel #chartpanel header="Time Series" [toggleable]="true">
-	<div class="ui-g">
-		<div class="ui-g-12" style="text-align: center;">
-		    <p-dropdown id="time-series-drop" [options]="timeSeriesDropdown" placeholder="Select a tag..." [filter]="true" (onChange)=tagChange($event.value)></p-dropdown>
+<div class="stats-wrapper">
+	<p-panel header="General" [toggleable]="true">
+		<div class="ui-g">
+		    <div class="ui-g-12 ui-md-12 ui-lg-6">
+		    	<p-chart type="doughnut" [data]="countDataIntentChart" [options]="intentOptions" ></p-chart>
+		    </div>
+		    <div class="ui-g-12 ui-md-12 ui-lg-6">
+		    	<p-chart type="doughnut" [data]="countDataCategoryChart" [options]="categoryOptions"></p-chart>
+		    </div>
 		</div>
-	    <div class="ui-g-12 ui-md-12 ui-lg-10 line-chart">
-	    	<p-chart type="line" [data]="timeSeriesChart" [options]="timeSeriesOptions"></p-chart>
-	    </div>
-	</div>
-</p-panel>
+	</p-panel>
 
+	<!--Time series-->
+	<p-panel #chartpanel header="Time Series" [toggleable]="true">
+		<div class="ui-g">
+			<div class="ui-g-12" style="text-align: center;">
+			    <p-dropdown id="time-series-drop" [options]="timeSeriesDropdown" placeholder="Select a tag..." [filter]="true" (onChange)=tagChange($event.value)></p-dropdown>
+			</div>
+		    <div class="ui-g-12 ui-md-12 ui-lg-10 line-chart">
+		    	<p-chart type="line" [data]="timeSeriesChart" [options]="timeSeriesOptions"></p-chart>
+		    </div>
+		</div>
+	</p-panel>
+</div>
 
 
 

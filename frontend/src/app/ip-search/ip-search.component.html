@@ -6,13 +6,13 @@
     <button id="submitButton" pButton type="submit" label = "Search" [disabled] = "!searchForm.valid"></button>
 </form>
 
-<h1 *ngIf="ipSearchedFor != undefined">Results for: {{ipSearchedFor}}</h1>
-<div class = "ui-g-12 singleIpMap" leaflet style="height: 400px;"
+<h2 *ngIf="ipSearchedFor != undefined">Results for: {{ipSearchedFor}}</h2>
+<div class = "singleIpMap" leaflet
 	 [leafletOptions]="options"
 	 [leafletLayers]="layers">
 </div>
 
-<p-table id="ipTable" [value]="ipRows" [rows]="20" [paginator]="true" autoLayout="true" [responsive] = "true" #ipTable>
+<p-table id="ipTable" [styleClass] = "'ip-table'" [value]="ipRows" [rows]="20" [paginator]="true" autoLayout="true" [responsive]="true" #ipTable>
     <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name">

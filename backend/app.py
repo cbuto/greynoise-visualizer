@@ -277,7 +277,7 @@ def getSingleIpGeo(ip):
         response = reader.city(ip)
         #if lat or long is null, skip it 
         if(not response.location.longitude or not response.location.longitude):
-            return 
+            return "Not Found"
         finalGeoData['long'] = response.location.longitude
         finalGeoData['lat'] = response.location.latitude
     except Exception as e:

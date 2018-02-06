@@ -116,8 +116,8 @@ describe('IpSearchComponent', () => {
     });
   }));
 
-  it('should call loadIPDataLink', async(() => {
-    const spy = spyOn(component, 'loadIPDataLink').and.callThrough();
+  it('should call loadIPData', async(() => {
+    const spy = spyOn(component, 'loadIPData').and.callThrough();
     fixture.detectChanges();
 
     component.ngOnInit();

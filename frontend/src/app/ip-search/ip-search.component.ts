@@ -69,17 +69,9 @@ export class IpSearchComponent implements OnInit {
     //if ip param is not undefined
     //load data according to ip param
     if(this.hasIPLink){
-    	this.loadIPDataLink(this.ipLink);
+    	this.loadIPData(this.ipLink);
     }
  
-  }
-
-  //load data if link has an ip parameter 
-  //used for linking to IP searches
-  loadIPDataLink(ip){
-  	//get ip data for param in url
-	this.loadIPData(ip);
-
   }
 
   //load data on search 
