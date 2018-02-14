@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {Location} from '@angular/common';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs/Rx';
@@ -45,7 +45,7 @@ export class IpSearchComponent implements OnInit {
   layers: L.Layer[] = [];
   markerIP: any;
   LAYER_OSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.' });
-
+  map: L.Map;
   // Values to bind to Leaflet Directive
   options = {
     layers: [ this.LAYER_OSM ],
@@ -53,6 +53,7 @@ export class IpSearchComponent implements OnInit {
 	center: L.latLng(25.6, -8.6)
   };
 
+  center: any;
   ngOnInit() {
   	//search form init
   	this.searchForm = new FormGroup ({
@@ -124,10 +125,11 @@ export class IpSearchComponent implements OnInit {
 			this.markerIP.bindPopup(ip);
 			//add marker to layer
 			this.layers.push(this.markerIP);
+			this.center = L.latLng(this.geoData.record.lat, this.geoData.record.long);
 	});	
 	}
 
-//gets all associated tags for an IP
+  //gets all associated tags for an IP
   getIpData(ip: string){
 	return this._apiService
 		.getIpData(ip)

@@ -7,8 +7,9 @@
 </form>
 
 <h2 *ngIf="ipSearchedFor != undefined">Results for: {{ipSearchedFor}}</h2>
-<div class = "singleIpMap" leaflet
+<div id="map" class = "singleIpMap" leaflet
 	 [leafletOptions]="options"
+     [leafletCenter]="center"
 	 [leafletLayers]="layers">
 </div>
 
