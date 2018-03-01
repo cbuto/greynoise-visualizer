@@ -10,7 +10,7 @@
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px; 
 	border: .1px solid lightgrey;
-	width: 60%;
+	width: 40%;
 }
 .search-input:hover{
 	border-color: grey;

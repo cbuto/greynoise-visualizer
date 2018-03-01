@@ -8,6 +8,7 @@
     <input (input)="tagTable.filterGlobal($event.target.value, 'contains')" type="text" class = "fa search-input" pInputText size="50" placeholder="&#xf002; Search" > 
 </div>
       
+<p-messages [(value)]="msgs"></p-messages>
 
 <!-- Main datatable -->
 
@@ -94,6 +95,13 @@
             </td>
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="5">
+                No tag data found
+            </td>
+        </tr>
+</ng-template>
 </p-table>
 
 <!-- loading modal -->

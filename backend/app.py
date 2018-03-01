@@ -62,7 +62,10 @@ def api_get_only_tag_names():
     if req.status_code == 200:
         #get json
         onlyTagNames = req.json()
-
+        if(onlyTagNames['tags'] == "null"):
+            return jsonify({
+                'tags' :  "unknown"
+            })
         finalData = []
         #for all tag names, rearrange for easier consumptions
         for tag in onlyTagNames['tags']:
@@ -111,12 +114,17 @@ def api_get_stats_counts():
 
     #get tag info
     tags = getTags()
-    #get counts
-    counts = counter_of_things(tags)
+    if(tags == "unknown"):
+        return jsonify({
+                'counts' : "unknown"
+                })
+    else:
+        #get counts
+        counts = counter_of_things(tags)
 
-    return jsonify({
-              'counts' :  counts
-            }) 
+        return jsonify({
+                'counts' :  counts
+                }) 
 
 #returns other tags associated with an IP
 #calls getIpData to get data
@@ -191,7 +199,7 @@ def getTagData(tag):
     if req.status_code == 200:
         allTagData = req.json()
         if allTagData['status'] == "unknown":
-            return {}
+            return "unknown"
         finalTagData = []
 
         #for each tag instances
@@ -229,6 +237,8 @@ def getTags():
     req = requests.get('http://api.greynoise.io:8888/v1/query/list', headers=headers)
     if req.status_code == 200:
         allTagNames = req.json()
+        if(allTagNames['tags'] == 'null'):
+            return "unknown"
         finalTagData = []
         
         #for each tag, call getTagData to retrieve intent, category, and confidence
@@ -256,15 +266,18 @@ def getTagIpGeo(tag):
     #for each tag instances
     #rearrange data and get long and lat
     for section in tagData:
-        newTagData = {}
-        newTagData['ip'] = section['ip']
-        response = reader.city(section['ip'])
-        #if lat or long is null, skip it 
-        if(not response.location.longitude or not response.location.longitude):
-            continue;
-        newTagData['long'] = response.location.longitude
-        newTagData['lat'] = response.location.latitude
-        finalTagData.append(newTagData)
+        try:
+            newTagData = {}
+            newTagData['ip'] = section['ip']
+            response = reader.city(section['ip'])
+            #if lat or long is null, skip it 
+            if(not response.location.longitude or not response.location.longitude):
+                continue
+            newTagData['long'] = response.location.longitude
+            newTagData['lat'] = response.location.latitude
+            finalTagData.append(newTagData)
+        except Exception as e:
+            pass
 
     return finalTagData
 
@@ -297,7 +310,6 @@ def getIpData(ip):
 
     if req.status_code == 200:
         allIpData = req.json()
-        print(allIpData['status'])
         if allIpData['status'] == "unknown":
             return "unknown"
 
@@ -331,7 +343,10 @@ def getIpData(ip):
 @cache.cached(timeout=86400, key_prefix=make_cache_key)
 def get_time_series_data(tagName):
     """get time series data for tag"""
+    
     tagData = getTagData(tagName)
+    if tagData == "unknown":
+        return "unknown"
     df = pd.DataFrame(tagData)
     df['first_seen'] = pd.to_datetime(df['first_seen'], unit="ns")
     df['timestamp'] = df.first_seen.map(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))

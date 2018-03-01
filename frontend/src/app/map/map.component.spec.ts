@@ -11,7 +11,14 @@ import { By } from '@angular/platform-browser';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {SharedModule, DropdownModule, SelectItem, BlockUIModule } from 'primeng/primeng';
+//primeng
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/api';
+import {BlockUIModule} from 'primeng/blockui';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {Message} from 'primeng/api';
+
 import { MapComponent } from './map.component';
 
 describe('MapComponent', () => {
@@ -24,8 +31,9 @@ describe('MapComponent', () => {
       declarations: [ MapComponent ],
       imports: [
         HttpClientModule,
+        MessagesModule,
+        MessageModule,
         BrowserAnimationsModule,
-        SharedModule,
         DropdownModule,
         LeafletModule,
         LeafletMarkerClusterModule,

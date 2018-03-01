@@ -6,9 +6,19 @@ import 'rxjs/add/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ApiService} from '../api.service';
-import {TableModule} from 'primeng/table';
+
 import {DataTable} from 'primeng/components/datatable/datatable'; 
-import {SharedModule, DropdownModule, SelectItem, BlockUIModule, DialogModule } from 'primeng/primeng';
+//primeng
+import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/api';
+import {BlockUIModule} from 'primeng/blockui';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {Message} from 'primeng/api';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
 
 import { TableComponent } from './table.component';
 
@@ -22,9 +32,10 @@ describe('TableComponent', () => {
       declarations: [ TableComponent ],
       imports: [
         TableModule,
-        SharedModule,
         DropdownModule, 
         BlockUIModule,
+        MessagesModule,
+        MessageModule,
         HttpClientModule,
         BrowserAnimationsModule,
         DialogModule

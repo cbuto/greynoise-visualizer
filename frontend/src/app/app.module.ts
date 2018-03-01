@@ -2,12 +2,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { SharedModule, DropdownModule, ChartModule, TabMenuModule, MenuItem, BlockUIModule, PanelModule, ButtonModule, InputTextModule, DialogModule, MessagesModule, MessageModule} from 'primeng/primeng';
+
+//primeng
+import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import {ChartModule} from 'primeng/chart';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuItem} from 'primeng/api';
+import {BlockUIModule} from 'primeng/blockui';
+import {PanelModule} from 'primeng/panel';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+
 import { RouteRoutingModule } from './route/route-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import {TableModule} from 'primeng/table';
+
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { TableComponent } from './table/table.component';
@@ -29,7 +43,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserAnimationsModule,
     TableModule,
-    SharedModule,
     DropdownModule, 
     RouteRoutingModule,
     TabMenuModule, 

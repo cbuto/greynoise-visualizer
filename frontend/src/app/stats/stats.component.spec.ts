@@ -7,7 +7,15 @@ import { By } from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
 import { TableComponent } from '../table/table.component';
 import * as moment from 'moment';
-import {SharedModule, DropdownModule, SelectItem, ChartModule, PanelModule, BlockUIModule } from 'primeng/primeng';
+//primeng
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/api';
+import {BlockUIModule} from 'primeng/blockui';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {Message} from 'primeng/api';
+import {PanelModule} from 'primeng/panel';
+import {ChartModule} from 'primeng/chart';
 
 import { StatsComponent } from './stats.component';
 
@@ -22,7 +30,8 @@ describe('StatsComponent', () => {
       imports: [
         HttpClientModule,
         BrowserAnimationsModule,
-        SharedModule,
+        MessagesModule,
+        MessageModule,
         DropdownModule, 
         ChartModule,
         PanelModule, 

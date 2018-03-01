@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import { TableComponent } from '../table/table.component';
-
 import * as moment from 'moment';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {SharedModule, DropdownModule, SelectItem, ChartModule, PanelModule, BlockUIModule } from 'primeng/primeng';
-
+//primeng
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/api';
+import {BlockUIModule} from 'primeng/blockui';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {Message} from 'primeng/api';
+import {PanelModule} from 'primeng/panel';
+import {ChartModule} from 'primeng/chart';
 
 @Component({
   selector: 'app-stats',
@@ -44,22 +50,27 @@ export class StatsComponent implements OnInit {
 	timeSeriesChosen: any;
 	tagNames: any;
 
+	msgs: Message[] = [];
 	constructor(private _apiService: ApiService) {}
 
 	ngOnInit() {
 		this.createDropdown();
 		this.createDoughnutCharts();
-		
 	}	
 
 	//create dropdown for time series
 	createDropdown(){
 		//subcribe to getOnlyNames to create dropdown for time series
 		this.getOnlyNames().subscribe(_ => {;
-			this.timeSeriesDropdownTemp = this.tagNames.tags.map(data => data.name);
-			for(let name of this.timeSeriesDropdownTemp){
-				this.timeSeriesDropdown.push({label: name, value: name});
+			if(this.tagNames.tags == "null"){
+				this.msgs.push({severity:'error', summary:'Error!', detail:'No Tags Found!'});
 			}
+			else{
+				this.timeSeriesDropdownTemp = this.tagNames.tags.map(data => data.name);
+				for(let name of this.timeSeriesDropdownTemp){
+					this.timeSeriesDropdown.push({label: name, value: name});
+				}
+			}	
 		});
 	}
 
@@ -68,101 +79,106 @@ export class StatsComponent implements OnInit {
 		//subscribe to getCounts and plot doughnut charts
 		this.getCounts().subscribe(_ => {;
 			this.loadingAll = false;
-			//map intentions and counts
-			this.intentNames = this.countData.counts.intention.map(data => data.name);
-			this.intentCounts = this.countData.counts.intention.map(data => data.count);
+			if(this.countData.counts == "unknown"){
+				this.msgs.push({severity:'error', summary:'Error!', detail:'No Data Found!'});
+			}
+			else{
+				//map intentions and counts
+				this.intentNames = this.countData.counts.intention.map(data => data.name);
+				this.intentCounts = this.countData.counts.intention.map(data => data.count);
 
-			//map category names and counts
-			this.categoryNames = this.countData.counts.category.map(data => data.name);
-			this.categoryCounts = this.countData.counts.category.map(data => data.count);
+				//map category names and counts
+				this.categoryNames = this.countData.counts.category.map(data => data.name);
+				this.categoryCounts = this.countData.counts.category.map(data => data.count);
 
 
-			//intention chart setup
-			this.countDataIntentChart = {
-	            labels: this.intentNames,
-	            datasets: [
-	                {
-	                    data: this.intentCounts,
-	                    backgroundColor: [
-	                        "#FF6384",
-	                        "#36A2EB",
-	                        "#FFCE56"
-	                    ],
-	                    hoverBackgroundColor: [
-	                        "#FF6384",
-	                        "#36A2EB",
-	                        "#FFCE56"
-	                    ],
-	                    hoverBorderColor:[
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E"
-	                    ]
-	                }]    
-	            };
-	        //intention options
-	        this.intentOptions = {
-				title: {
-				    display: true,
-				    text: 'Intentions',
-				    fontSize: 16,
-				    fontColor: 'white'
-				},
-				legend: {
-					labels: {fontColor: 'white'},
-				    position: 'right'
-				}
-			};
-			//category chart 
-			this.countDataCategoryChart = {
+				//intention chart setup
+				this.countDataIntentChart = {
+					labels: this.intentNames,
+					datasets: [
+						{
+							data: this.intentCounts,
+							backgroundColor: [
+								"#FF6384",
+								"#36A2EB",
+								"#FFCE56"
+							],
+							hoverBackgroundColor: [
+								"#FF6384",
+								"#36A2EB",
+								"#FFCE56"
+							],
+							hoverBorderColor:[
+								"#241E1E",
+								"#241E1E",
+								"#241E1E"
+							]
+						}]    
+					};
+				//intention options
+				this.intentOptions = {
+					title: {
+						display: true,
+						text: 'Intentions',
+						fontSize: 16,
+						fontColor: 'white'
+					},
+					legend: {
+						labels: {fontColor: 'white'},
+						position: 'right'
+					}
+				};
+				//category chart 
+				this.countDataCategoryChart = {
 
-	            labels: this.categoryNames,
-	            datasets: [
-	                {
-	                    data: this.categoryCounts,
-	                    backgroundColor: [
-	                        "#24b34e",
-	                        "#dfa719",
-	                        "#d11143",   
-	                        "#93542d",
-	                        "#00a7cc",
-	                        "#722fa3",
-	                        "#FF6384"
-	                    ],
-	                    hoverBackgroundColor: [
-	                        "#24b34e",
-	                        "#dfa719",
-	                        "#d11143",
-	                        "#93542d",
-	                        "#00a7cc",
-	                        "#722fa3",
-	                        "#FF6384"
-	                    ],
-	                    hoverBorderColor:[
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E",
-	                    	"#241E1E"
-	                    ]
-	                }]    
-	            };
-	        //category options
-	        this.categoryOptions = {
-				title: {
-				    display: true,
-				    text: 'Categories',
-				    fontSize: 16,
-				    fontColor: 'white'
-				},
-				legend: {
-					labels: {fontColor: 'white'},
-				    position: 'right'
-				}
-			};
-    	});	
+					labels: this.categoryNames,
+					datasets: [
+						{
+							data: this.categoryCounts,
+							backgroundColor: [
+								"#24b34e",
+								"#dfa719",
+								"#d11143",   
+								"#93542d",
+								"#00a7cc",
+								"#722fa3",
+								"#FF6384"
+							],
+							hoverBackgroundColor: [
+								"#24b34e",
+								"#dfa719",
+								"#d11143",
+								"#93542d",
+								"#00a7cc",
+								"#722fa3",
+								"#FF6384"
+							],
+							hoverBorderColor:[
+								"#241E1E",
+								"#241E1E",
+								"#241E1E",
+								"#241E1E",
+								"#241E1E",
+								"#241E1E",
+								"#241E1E"
+							]
+						}]    
+					};
+				//category options
+				this.categoryOptions = {
+					title: {
+						display: true,
+						text: 'Categories',
+						fontSize: 16,
+						fontColor: 'white'
+					},
+					legend: {
+						labels: {fontColor: 'white'},
+						position: 'right'
+					}
+				};
+			}
+		});	
 	}
 
 	//get only tag names (used to view time series based on tag selection)
@@ -174,7 +190,7 @@ export class StatsComponent implements OnInit {
 					this.tagNames = data;
 			})
 			.catch((error) => {
-				throw error;
+				return Observable.empty();
 			});
 	}
 
@@ -188,9 +204,12 @@ export class StatsComponent implements OnInit {
 					this.countData = data;
 			})
 			.catch((error) => {
-				throw error;
+				this.msgs.push({severity:'error', summary:'Error', detail:'Something went wrong!'});
+				this.loadingAll = false;
+				return Observable.empty();
 			});
 	}
+
 	//used to get time series data for a selected tag
 	getTimeSeries(tagName){
 		this.loadingChart = true;
@@ -201,9 +220,11 @@ export class StatsComponent implements OnInit {
 					this.timeSeriesData = data;
 			})
 			.catch((error) => {
-				throw error;
+				this.msgs.push({severity:'error', summary:'Error', detail:'Something went wrong!'});
+				return Observable.empty();
 			});
 	}
+	
 	//when a tag is selected, change time series chart
 	tagChange(value){
 		

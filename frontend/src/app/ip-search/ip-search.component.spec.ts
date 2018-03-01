@@ -11,8 +11,13 @@ import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, Validators, FormControl, FormGroup } from '@angular/forms';
 import * as L from 'leaflet';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+//primeng
 import {TableModule} from 'primeng/table';
-import {SharedModule, ButtonModule, MessagesModule, MessageModule, Message} from 'primeng/primeng';
+import {ButtonModule} from 'primeng/button';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {Message} from 'primeng/api';
+
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IpSearchComponent } from './ip-search.component';
@@ -28,7 +33,6 @@ describe('IpSearchComponent', () => {
       imports: [
         HttpClientModule,
         BrowserAnimationsModule,
-        SharedModule,
         LeafletModule,
         ButtonModule,
         MessagesModule,
@@ -141,7 +145,6 @@ describe('IpSearchComponent IP Not Found', () => {
       imports: [
         HttpClientModule,
         BrowserAnimationsModule,
-        SharedModule,
         LeafletModule,
         ButtonModule,
         MessagesModule,
@@ -201,7 +204,6 @@ describe('IpSearchComponent link to IP not found', () => {
       imports: [
         HttpClientModule,
         BrowserAnimationsModule,
-        SharedModule,
         LeafletModule,
         ButtonModule,
         MessagesModule,
