@@ -30,9 +30,10 @@ services:
         - SERVER_NAME=${GREYNOISE_SERVER_NAME}
         - CERT_NAME=${GREYNOISE_CERT_NAME}
       dockerfile: ./nginx/Dockerfile
-    volumes:
-      - /etc/ssl/certs/greynoise/:/etc/ssl/certs/
-      - /etc/ssl/private/greynoise/:/etc/ssl/private/
+    #uncomment to use SSL
+    #volumes:
+    #  - /etc/ssl/certs/greynoise/:/etc/ssl/certs/
+    #  - /etc/ssl/private/greynoise/:/etc/ssl/private/
     ports:
       - "80:80"
       - "443:443"

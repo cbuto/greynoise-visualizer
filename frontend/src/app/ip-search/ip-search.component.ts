@@ -136,29 +136,31 @@ export class IpSearchComponent implements OnInit {
 
 	//gets all associated tags for an IP
 	getIpData(ip: string){
-	return this._apiService
-		.getIpData(ip)
-		.map(
-			(data) => {
-				this.ipData = data;
-		})
-		.catch((error) => {
-			this.msgs.push({severity:'error', summary:'Error', detail:'Something went wrong!'});
-			return Observable.empty();
-		});
+		return this._apiService
+			.getIpData(ip)
+			.map(
+				(data) => {
+					this.ipData = data;
+			})
+			.catch((error) => {
+				this.msgs = [];
+				this.msgs.push({severity:'error', summary:'Error', detail:'Something went wrong!'});
+				return Observable.empty();
+			});
 	}
 
 	//get geo location data for a single IP
 	getGeoDataSingleIP(ip){
-	return this._apiService
-		.getGeoDataSingleIP(ip)
-		.map(
-			(data) => {
-				this.geoData = data;
-		})
-		.catch((error) => {
-			this.msgs.push({severity:'error', summary:'Error', detail:'Something went wrong!'});
-			return Observable.empty();
-		});
+		return this._apiService
+			.getGeoDataSingleIP(ip)
+			.map(
+				(data) => {
+					this.geoData = data;
+			})
+			.catch((error) => {
+				this.msgs = [];
+				this.msgs.push({severity:'error', summary:'Error', detail:'Geo data not found!'});
+				return Observable.empty();
+			});
 	}
 }

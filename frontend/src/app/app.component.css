@@ -1,9 +1,72 @@
 h1{
-	font-family: 'Rajdhani', sans-serif;
+	font-family: 'Rajdhani', sans-serif !important;
 	font-size: 50px;
-    font-weight: bolder;
+	font-weight: bolder;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+:host /deep/ .ui-messages{
+	margin-left: auto;
+	margin-right: auto;
+}
+@media screen and (max-width: 767px) {
+    :host /deep/ .ui-dropdown.dropdown{
+		width: 100% !important;
+	}
+	:host /deep/ .ui-dropdown-panel{
+		width: 100% !important;
+	}
+}
+
+@media screen and (min-width: 767px) {
+	.navbar-nav{ 
+		display: none; 
+	}
+	.navbar-collapse{ 
+		flex-grow: 0; 
+	}
+}
+@media screen and (max-width: 767px) {
+	:host /deep/ .menu-header{
+		display: none;
+	}
+	h1{
+		display: inline-block;
+		padding-top: .3125rem;
+		padding-bottom: .3125rem;
+		margin-right: 1rem;
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-left: 0;
+		font-size: 1.75rem;
+		line-height: inherit;
+		white-space: nowrap;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	h1{
+		font-size: 1.25rem;
+		margin-right: 0;
+	}
+}
+
+:host /deep/ .menu-header{
+	position: absolute;
+	bottom: 1px;
+	left: 0;
 }
 .header{
-	width: 96%;
-	margin: auto;
+	background-color: #333333;
+	color: white;
+}
+.nav-link{
+	color:	white;
+}
+.navbar-nav .nav-link:hover{
+	color:white;
+}
+:host /deep/ .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem a:hover{
+	color: white;
 }

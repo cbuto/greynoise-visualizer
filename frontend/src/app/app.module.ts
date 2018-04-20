@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //primeng
 import {TableModule} from 'primeng/table';
@@ -56,7 +57,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogModule,
     ReactiveFormsModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    NgbModule.forRoot()
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

@@ -29,11 +29,14 @@
 	      "../node_modules/primeng/resources/themes/cruze/theme.css",
         "../node_modules/leaflet/dist/leaflet.css",
         "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.css"
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",
-	      "../node_modules/moment/min/moment.min.js"
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

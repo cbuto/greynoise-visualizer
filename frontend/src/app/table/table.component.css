@@ -22,20 +22,41 @@
 .filterHeaders{
 	width: 100%;
 }
-a:visited, a:active{
+a:visited, a:active {
 	color: inherit;
 	background: inherit;
 }
 tr td a{
 	color: white;
 }
-
 #mainTable{
 	display: block;
 	overflow-x: auto;
-	width: 96%;
 	margin: auto;
+}
+:host /deep/ #mainTable table tbody tr{
+	cursor: pointer;
+}
+:host /deep/ #mainTable table tbody tr:hover{
+	background-color: lightgrey;
+	color: black;
+}
+:host /deep/ #mainTable table tbody tr:hover td a{
+	color: black;
 }
 #secondaryTable table thead tr th p-sorticon span {
 	display: block !important;
+}
+
+@media screen and (min-width: 767px) {
+    :host /deep/ .ui-dialog.dialog{
+        width: 75% !important;
+	}
+}
+
+@media screen and (max-width: 767px) {
+    .search-input{
+		width: 96% !important;
+		margin: auto;
+	}
 }

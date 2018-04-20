@@ -117,6 +117,8 @@ docker-compose up -d
 
 The SSL cert and key are set to be in /etc/ssl/certs/greynoise/greynoise.crt and /etc/ssl/certs/greynoise/greynoise.key on the host machine running the containers. See [optional SSL configuration](#optional-ssl-configuration) below to configure cert names/paths.
 
+Also, the lines 34-36 in docker-compose.yml need to be uncommented or altered based on the cert paths of the host machine.
+
 ```bash
 export GREYNOISE_NGINX_SSL=true #will enable SSL
 export GREYNOISE_SERVER_NAME=localhost #or whatever the server name will be

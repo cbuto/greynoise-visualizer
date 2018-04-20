@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -25,6 +25,8 @@ import {DialogModule} from 'primeng/dialog';
 })
 export class TableComponent implements OnInit {
 	
+	@ViewChild('ipDialog') ipDialog;
+
 	//general data
 	public allTags; //used in getTags 
 	public tagData; //used in getTagData 
@@ -171,5 +173,16 @@ export class TableComponent implements OnInit {
 				return Observable.empty();
 			});
 	}
+	//Minor hack due to the PrimeNG dialog not readjusting the height of the dialog when resizing the window
+	//This will listen for a window resize and reset the height of the dialog on resize (which PrimeNG is not doing)
+	@HostListener('window:resize', ['$event']) onresize(e: Event): void {
+	const {height} = this.ipDialog.contentViewChild.nativeElement.getBoundingClientRect();
+	requestAnimationFrame(
+		_ => {
+			this.ipDialog.contentViewChild.nativeElement.style.height = null;
+			this.ipDialog.positionOverlay();
+		}
+	);
+}
 
 }

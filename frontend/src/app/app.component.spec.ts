@@ -22,6 +22,7 @@ import { TableComponent } from './table/table.component';
 import { StatsComponent } from './stats/stats.component';
 import { MapComponent } from './map/map.component';
 import { IpSearchComponent } from './ip-search/ip-search.component';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
 
@@ -56,7 +57,8 @@ describe('AppComponent', () => {
         DialogModule,
         MessagesModule, 
         MessageModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbModule
       ],
       providers: [ApiService,
       {provide: APP_BASE_HREF, useValue: '/'}],

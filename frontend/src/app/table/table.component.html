@@ -30,9 +30,9 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-expanded="expanded" let-row>
-        <tr>
+        <tr [pRowToggler]="row">
             <td>
-                <a href="#" [pRowToggler]="row">
+                <a href="#" >
                     <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
                 </a>
             </td>
@@ -109,8 +109,8 @@
     <div><i class="fa fa-cog fa-spin fa-5x"></i></div>
 </p-blockUI>
 
-<p-dialog header="Other Associated Tags" [(visible)]="display" [modal]="true" [dismissableMask]="true" [draggable] = "true" >
-    <p-table id="dialogTable" [value]="ipEventData" [rows]="20" [paginator]="true" autoLayout="true" #ipTable>
+<p-dialog styleClass="dialog" header="Other Associated Tags" [(visible)]="display" [modal]="true" [dismissableMask]="true" [draggable] = "false" #ipDialog>
+    <p-table id="dialogTable" [value]="ipEventData" [rows]="20" [paginator]="true" autoLayout="true" [responsive] = "true" #ipTable>
         <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name">

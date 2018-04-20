@@ -7,7 +7,6 @@ h2{
 	margin-left: 2%;
 }
 :host /deep/ .ip-table{
-	width: 96% !important;
 	margin: auto !important;
 	padding-top: 10px !important;
 }
@@ -20,7 +19,15 @@ h2{
 	border: .1px solid lightgrey;
 	width: 30%;
 	font-size: 13px;
+	display: inline-block;
 }
+
+@media screen and (max-width: 767px) {
+    #ipsearchbox{
+        width: 50% !important;
+	}
+}
+
 #ipsearchbox:hover{
 	border-color: grey;
 }
@@ -29,6 +36,5 @@ h2{
 }
 .singleIpMap{
 	height: 400px;
-	width: 96%;
 	margin: auto;
 }

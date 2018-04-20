@@ -1,8 +1,22 @@
-<div style="text-align:center" class = "ui-widget-header header">
-  <h1>
-   GreyNoise Visualizer
-  </h1>
-  <p-tabMenu [model]="items" [styleClass] = "'menu-header'" [activeItem]="{}"></p-tabMenu>
+<div class = "header">
+  <nav class="ham-menu navbar navbar-toggleable-md navbar-expand-md navbar-dark bg-faded">
+      <h1>
+          GreyNoise Visualizer
+      </h1>
+      <p-tabMenu [model]="items" [styleClass] = "'menu-header'" [activeItem]="{}"></p-tabMenu>
+      <button class="navbar-toggler navbar-toggler-right pull-right" type="button" (click)="isCollapsed = !isCollapsed"
+              aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="exCollapsingNavbar2">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" routerLink="table" routerLinkActive="active"><span class="fa fa-database"></span> Table</a>
+          <a class="nav-item nav-link" routerLink="ip" routerLinkActive="active"><span class="fa fa-search"></span> IP Search</a>
+          <a class="nav-item nav-link" routerLink="map" routerLinkActive="active"><span class="fa fa-map"></span> Map</a>
+          <a class="nav-item nav-link" routerLink="stats" routerLinkActive="active"><span class="fa fa-bar-chart"></span> Stats</a>
+        </div>
+      </div>
+    </nav>
 </div>
 
 <router-outlet></router-outlet>

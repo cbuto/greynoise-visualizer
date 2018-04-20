@@ -211,7 +211,7 @@ def getTagData(tag):
             newTagData['confidence'] = section['confidence']
             # set intention to 'Null' if empty
             if(not section['intention']):
-                newTagData['intention'] = 'Null'
+                newTagData['intention'] = 'Unknown'
             else:
                 newTagData['intention'] = section['intention']
                 

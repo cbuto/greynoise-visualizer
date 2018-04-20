@@ -9,9 +9,7 @@ frontend/node_modules
 #python stuff
 backend/__pycache__
 backend/.coverage
-backend/GeoLite2-City.mmdb
-backend/GeoLite2-City.tar.gz
-backend/GeoLite2-City_20180102/
+backend/GeoLite2-City*
 
 # System Files
 .DS_Store

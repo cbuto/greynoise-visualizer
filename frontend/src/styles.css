@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
  @import url('https://fonts.googleapis.com/css?family=Rajdhani');
+
+ @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
  
 .ui-blockui div{
 	position: relative;
@@ -13,6 +15,8 @@
 }
 body{
 	background-color: #eef1f4;
+	width: 96%;
+	margin: auto;
 }
 .menu-header{
 	border: none;
