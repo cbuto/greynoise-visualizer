@@ -57,7 +57,7 @@ class TestApi(unittest.TestCase):
                     {
                       "category": "search_engine",
                       "confidence": "high",
-                      "intention": "Null",
+                      "intention": "Unknown",
                       "name": "YANDEX_SEARCH_ENGINE"
                     }]
         finalTagData = { 
@@ -65,7 +65,7 @@ class TestApi(unittest.TestCase):
                           {
                           "category": "search_engine",
                           "confidence": "high",
-                          "intention": "Null",
+                          "intention": "Unknown",
                           "name": "YANDEX_SEARCH_ENGINE"
                         }
                         ]
@@ -384,48 +384,6 @@ class TestApi(unittest.TestCase):
         tagDataResponse = self.app.get("/api/stats/YANDEX_SEARCH_ENGINE")
         self.assertEqual(tagDataResponse.status_code, 200)
         self.assertEqual(json.loads(tagDataResponse.data), finalTagData)
-
-    @patch('app.getTagData')
-    def test_getTagIpGeo(self, mock_get_tag_data):
-        """test getTagIpGeo function"""
-        tagData = [
-                      {
-                        "category": "search_engine", 
-                        "confidence": "high", 
-                        "first_seen": "2017-11-21T07:00:00.000Z", 
-                        "intention": "Null", 
-                        "ip": "66.249.80.1",
-                        "last_updated": "2018-01-03T22:47:16.556Z", 
-                        "name": "YANDEX_SEARCH_ENGINE"
-                      },
-                      {
-                        "category": "search_engine", 
-                        "confidence": "high", 
-                        "first_seen": "2017-11-21T07:00:00.000Z", 
-                        "intention": "Null", 
-                        "ip": "66.102.6.191",
-                        "last_updated": "2018-01-03T22:47:16.556Z", 
-                        "name": "YANDEX_SEARCH_ENGINE"
-                      }
-                  ]
-        finalTagData = [
-                {
-                  "ip": "66.249.80.1",
-                  "lat": 32.7787,
-                  "long": -96.8217
-                },
-                {
-                  "ip": "66.102.6.191",
-                  "lat": 37.419200000000004,
-                  "long": -122.0574
-                }
-              ]
-
-        mock_get_tag_data.return_value = Mock()
-        mock_get_tag_data.return_value = tagData
-
-        data = app.getTagIpGeo("GOOGLEBOT")
-        self.assertEqual(data, finalTagData)
 
     @patch('app.getTagIpGeo')
     def test_api_get_tag_geo(self, mock_get_tag_data):
