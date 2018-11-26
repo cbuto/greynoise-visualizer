@@ -70,6 +70,7 @@ export class MapComponent implements OnInit {
 	tagChangeMap(value){
 		//clear previous layers (data)
 		this.markerClusterGroup.clearLayers();
+		this.markerList = [];
 		//call getGeoData to retreive lat/long of IPs
 		this.getGeoData(value).subscribe(_ => {;
 			//for each IP in geoData
@@ -87,7 +88,6 @@ export class MapComponent implements OnInit {
 				//create list of markers
 				this.markerList.push(marker);
 			}
-
 			this.markerClusterData = this.markerList;
 			//add layers to cluster group
 			this.markerClusterGroup.addLayers(this.markerClusterData);
