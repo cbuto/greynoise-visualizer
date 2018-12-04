@@ -247,11 +247,14 @@ def getTags():
             newTagData = {}
             #only need to get first instance because
             #all instances have same data
-            newTagData['category'] = resp[0]['category']
-            newTagData['name'] = resp[0]['name']
-            newTagData['intention'] = resp[0]['intention']
-            newTagData['confidence'] = resp[0]['confidence']
-            finalTagData.append(newTagData)
+            try:
+                newTagData['category'] = resp[0]['category']
+                newTagData['name'] = resp[0]['name']
+                newTagData['intention'] = resp[0]['intention']
+                newTagData['confidence'] = resp[0]['confidence']
+                finalTagData.append(newTagData)
+            except Exception as e:
+                continue
         return finalTagData
     else:
         return {}
